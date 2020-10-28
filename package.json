@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"scripts": {
 		"prebuild": "rm -f static/css/main.*.css",
-		"build": "npx postcss -o static/css/main.css styles/*.css"
+		"build": "npx postcss -o static/css/main.css styles/*.css",
+		"postbuild": "./scripts/inject_css.js layouts/_default/baseof.html"
 	},
 	"devDependencies": {
 		"@fullhuman/postcss-purgecss": "^3.0.0",
