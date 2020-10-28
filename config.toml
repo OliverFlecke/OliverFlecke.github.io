@@ -1,3 +1,4 @@
 baseURL = "https://oliverflecke.me/"
 languageCode = "en-us"
 title = "Home for OliverFlecke"
+enableRobotsTXT = true
