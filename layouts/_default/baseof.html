@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>{{ block "title" . }} {{ .Site.Title }} {{ end }}</title>
+	</head>
+	<body>
+		<header>
+			<h2>
+				I'm Oliver Fleckenstein; a programmer, avid learner, gamer, and a
+				runner.
+			</h2>
+		</header>
+		{{ block "main" . }} {{ end }} {{ block "footer" . }} {{ end }}
+	</body>
+</html>
