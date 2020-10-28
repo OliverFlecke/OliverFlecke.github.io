@@ -1,12 +1,3 @@
 {{ define "main" }}
-<main aria-role="main">
-	<header>
-		{{ with .Params.subtitle }}
-		<span>{{.}}</span>
-		{{ end }}
-		<nav></nav>
-	</header>
-
-	<section>{{ .Content }}</section>
-</main>
+<main aria-role="main"><section>{{ .Content }}</section></main>
 {{ end }}
