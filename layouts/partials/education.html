@@ -1,0 +1,11 @@
+<div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
+	<time class="text-white dark:text-orange-600 block sm:inline sm:row-span-3 sm:pr-4">
+		{{ dateFormat "2006" .start }} - {{ dateFormat "2006" .end }}
+	</time>
+	<span>
+		<h4 class="font-semibold text-purple-400 inline">{{ .title }}</h4>
+		<span class="italic inline text-white dark:text-gray-500">{{ .location }}</span>
+	</span>
+		<pre class="text-black dark:text-gray-400 text-xs">{{ .degree }}</pre>
+	<p class="text-black dark:text-white text-sm max-w-lg">{{ .description }}</p>
+</div>

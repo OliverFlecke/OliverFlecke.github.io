@@ -9,21 +9,10 @@
 			content="Blog, notes and everything else for Oliver Fleckenstein"
 		/>
 		<title>{{ .Title }} | {{ .Site.Title }}</title>
-		<link href="/css/main.c9336d9809.css" rel="stylesheet" />
+		<link href="/css/main.c2c9d0becf.css" rel="stylesheet" />
 	</head>
-	<body class="bg-white dark:bg-gray-800">
-		<header class="p-6 bg-blue-800 border-t-4 dark:border-gray-400">
-			<nav>
-				<ul class="flex uppercase text-xl space-x-4 text-gray-100">
-					<li><a href="/">Home</a></li>
-					<li><a href="/about">About</a></li>
-				</ul>
-			</nav>
-			<h2 class="text-md max-w-md text-gray-400">
-				I'm Oliver Fleckenstein; a programmer, avid learner, tech enthusiast,
-				gamer, and a runner.
-			</h2>
-		</header>
+	<body class="pb-4 bg-white dark:bg-gray-900">
+		{{ partial "header.html" }}
 		{{ block "main" . }} {{ end }} {{ block "footer" . }} {{ end }}
 	</body>
 </html>

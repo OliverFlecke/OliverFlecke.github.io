@@ -13,15 +13,22 @@ body {
 }
 
 .markdown {
+	& p {
+		@apply max-w-2xl break-words;
+	}
+
 	& h2 {
-		@apply text-xl font-bold pt-2;
+		@apply text-xl font-bold pt-2 text-gray-600;
 	}
 
 	& h3 {
-		@apply text-lg font-semibold pt-2;
+		@apply text-lg font-semibold pt-2 text-gray-600;
 	}
 
-	& li {
-		@apply list-disc mx-6;
+	& ul {
+		@apply mx-4;
+		& li {
+			@apply mx-2 list-disc;
+		}
 	}
 }

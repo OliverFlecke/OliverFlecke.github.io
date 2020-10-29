@@ -18,13 +18,12 @@ I'm a software developer for the web and mobile, and I always enjoy new challeng
 - Java
 - Swift
 
+I have dappled around with several other languages, and find it interesting to see how different tools try to solve the same problems.
+
 ### Web technologies
 
 - TypeScript/JavaScript
 - React
 - HTML/CSS
 - SQL (PostgreSQL, SQLite)
-
-## Experience
-
-## Education
+- Docker

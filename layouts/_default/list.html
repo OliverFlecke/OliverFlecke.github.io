@@ -4,4 +4,11 @@
 <section class="mx-4 text-white dark:text-gray-300 markdown">
 	{{ .Content }}
 </section>
+
+<section class="text-white">
+	<!-- {{ .Resources.Match "education/*" }} -->
+	{{ (.Site.GetPage "/about/education/DTU").Content }}
+
+	{{ .Resources.ByType "md" }}
+</section>
 {{ end }}
