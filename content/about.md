@@ -2,7 +2,6 @@
 title: About
 date: 2020-10-28
 type: single
-draft: true
 ---
 
 I'm Oliver Fleckenstein.

@@ -9,10 +9,12 @@
 			content="Blog, notes and everything else for Oliver Fleckenstein"
 		/>
 		<title>{{ .Title }} | {{ .Site.Title }}</title>
-		<link href="/css/main.ad7655685d.css" rel="stylesheet" />
+		<link href="/css/main.6c1ed1f5b4.css" rel="stylesheet" />
 	</head>
 	<body class="pb-4 bg-white dark:bg-gray-900">
 		{{ partial "header.html" }}
-		{{ block "main" . }} {{ end }} {{ block "footer" . }} {{ end }}
+		<div class="px-6 flex justify-center">
+			{{ block "main" . }} {{ end }} {{ block "footer" . }} {{ end }}
+		</div>
 	</body>
 </html>
