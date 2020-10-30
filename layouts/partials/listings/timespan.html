@@ -1,1 +1,4 @@
-<time class="text-white dark:text-orange-600 block sm:inline sm:row-span-3 sm:pr-4">{{ dateFormat "2006" .Start }} - {{ with .End }}{{ dateFormat "2006" . }}{{ else }}Now{{ end }}</time>
+<time class="text-orange-600 block sm:inline sm:row-span-3 sm:pr-4">
+	{{ dateFormat "2006" .Start }} - {{ with .End }}{{ dateFormat "2006" . }}
+	{{ else }}Now{{ end }}
+</time>
