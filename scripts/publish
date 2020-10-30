@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+git switch public
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ $branch != 'public' ];
+then
+  echo 'Unable to checkout public'
+  exit 1
+fi
+
+cp -r _public/* .
+
+git add --all
+git commit -m $1
+git push
+
+git switch master
