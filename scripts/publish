@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+hugo -d _public --minify
 git switch public
 
 branch=$(git rev-parse --abbrev-ref HEAD)
@@ -12,7 +13,7 @@ fi
 cp -r _public/* .
 
 git add --all
-git commit -m $1
+git commit -m "$1"
 git push
 
 git switch master
