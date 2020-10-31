@@ -18,7 +18,7 @@ body {
 	}
 
 	& h2 {
-		@apply text-xl font-bold pt-2 text-gray-500;
+		@apply text-xl font-bold pt-2 text-gray-700;
 
 		@media (prefers-color-scheme: dark) {
 			@apply text-gray-500;
@@ -26,7 +26,7 @@ body {
 	}
 
 	& h3 {
-		@apply text-lg font-semibold pt-2 text-gray-500;
+		@apply text-lg font-semibold pt-2 text-gray-700;
 
 		@media (prefers-color-scheme: dark) {
 			@apply text-gray-500;
