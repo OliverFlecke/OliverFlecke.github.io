@@ -1,18 +1,18 @@
 {{ define "main" }}
-<main class="w-full max-w-2xl">
-  <h1 class="my-4 text-2xl font-bold text-gray-700 dark:text-gray-300">{{ .Title }}</h1>
+<h1 class="my-4 text-2xl font-bold text-orange-700 dark:text-orange-700">{{ .Title }}</h1>
 
-  <section class="text-gray-900 dark:text-white dark:text-gray-300 markdown">{{ .Content }}</section>
+<section class="text-gray-900 dark:text-gray-300 markdown">
+	{{ .Content }}
+</section>
 
-  <section>
-    <h2 class="text-xl font-bold pt-2 text-gray-700 dark:text-gray-600">Experience</h2>
-    {{ range sort $.Site.Data.experience "End" "desc" }} {{ partial "experience.html" . }} {{ end }}
-  </section>
-  <section>
-    <h2 class="text-xl font-bold pt-2 text-gray-700 dark:text-gray-600">Education</h2>
-    {{ range sort $.Site.Data.education "End" "desc" }}
-    {{ partial "education.html" . }}
-    {{ end }}
-  </section>
-</main>
+<section>
+	<h2 class="text-xl font-bold pt-2 text-gray-700 dark:text-gray-600">Experience</h2>
+	{{ range sort $.Site.Data.experience "End" "desc" }} {{ partial "experience.html" . }} {{ end }}
+</section>
+<section>
+	<h2 class="text-xl font-bold pt-2 text-gray-700 dark:text-gray-600">Education</h2>
+	{{ range sort $.Site.Data.education "End" "desc" }}
+	{{ partial "education.html" . }}
+	{{ end }}
+</section>
 {{ end }}

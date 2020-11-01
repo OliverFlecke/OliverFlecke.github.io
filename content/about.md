@@ -1,7 +1,7 @@
 ---
 title: About
 date: 2020-10-28
-type: single
+template: about.html
 ---
 
 I'm Oliver Fleckenstein.
@@ -17,7 +17,7 @@ I'm a software developer for the web and mobile, and I always enjoy new challeng
 - Java
 - Swift
 
-I have dappled around with several other languages, and find it interesting to see how different tools try to solve the same problems.
+I have dappled around with several other languages, and always find it interesting to see how different tools try to solve the same problems.
 
 ### Web technologies
 
