@@ -1,5 +1,11 @@
 {{ define "main" }}
 <main class="w-full max-w-2xl">
 	<section>{{ .Content }}</section>
+
+	{{ range .Sections }}
+		{{ range .Pages }}
+			{{ partial "post" . }}
+		{{ end }}
+	{{ end }}
 </main>
 {{ end }}
