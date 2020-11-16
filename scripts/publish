@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 
+if [ -z ${1+x} ]; then
+  echo 'Please provide an commit message'
+  exit 1
+fi
+
 hugo -d _public --minify
 git switch public
 
