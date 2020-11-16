@@ -54,6 +54,7 @@ Here is a sample.
 
 Notice that this is a valid Prolog term; it is a list of lists (rows).
 All the given numbers are filled in, while the rest are given the `_`, indicating a value we do not care about.
+Another benefit of this format, is that it can be stored in a file and read directly into a variable in Prolog.
 
 So how do we solve a sudoku in Prolog?
 Which algorithm are we using?
@@ -115,10 +116,10 @@ We could take every single number out of the rows list and write rules to match 
 For the first square, this could look like this:
 
 ```prolog
-Rows = [R1, R2, R3 | Tail],
-R1 = [N11, N12, N13 | R1Tail],
-R2 = [N21, N22, N23 | R2Tail],
-R3 = [N31, N32, N33 | R3Tail],
+Rows = [R1, R2, R3 | _],
+R1 = [N11, N12, N13 | _],
+R2 = [N21, N22, N23 | _],
+R3 = [N31, N32, N33 | _],
 all_distinct([N11, N12, N13, N21, N22, N23, N31, N32, N33]).
 ```
 

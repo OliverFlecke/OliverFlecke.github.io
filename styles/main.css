@@ -30,7 +30,7 @@ body {
 	}
 
 	& pre {
-		@apply text-sm p-1;
+		@apply text-sm p-1 overflow-y-scroll;
 	}
 
 	& h2 {
