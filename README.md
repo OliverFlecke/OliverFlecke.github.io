@@ -12,3 +12,11 @@ hugo -d _public --minify
 ```
 
 Publish the site using `scripts/publish.sh`.
+
+## Serve the website locally
+
+To run the server locally (with hotreload):
+
+```sh
+hugo server
+```
