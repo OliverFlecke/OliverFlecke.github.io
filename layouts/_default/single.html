@@ -1,16 +1,16 @@
 {{ define "main" }}
-<h1 class="my-3 text-2xl font-bold text-orange-800 dark:text-orange-600">{{ .Title }}</h1>
+<h1 class="my-3 text-2xl font-bold text-purple-800 dark:text-yellow-600">{{ .Title }}</h1>
 
 <section class="text-gray-900 dark:text-gray-300 markdown">
 	{{ .Content }}
 </section>
 
 <section>
-	<h2 class="text-xl font-bold pt-2 text-gray-700 dark:text-gray-600">Experience</h2>
-	{{ range sort $.Site.Data.experience "End" "desc" }} {{ partial "experience.html" . }} {{ end }}
+	<h2 class="text-xl font-bold pt-2 text-purple-800 dark:text-yellow-600">Experience</h2>
+	{{ range sort $.Site.Data.experience "Start" "desc" }} {{ partial "experience.html" . }} {{ end }}
 </section>
 <section>
-	<h2 class="text-xl font-bold pt-2 text-gray-700 dark:text-gray-600">Education</h2>
+	<h2 class="text-xl font-bold pt-2 text-purple-800 dark:text-yellow-600">Education</h2>
 	{{ range sort $.Site.Data.education "End" "desc" }}
 	{{ partial "education.html" . }}
 	{{ end }}

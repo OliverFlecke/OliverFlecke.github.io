@@ -8,13 +8,8 @@ module.exports = {
 		enable: true,
 		content: ['**/*.html'],
 	},
-	theme: {
-		extend: {
-			screens: {
-				dark: { raw: '(prefers-color-scheme: dark)' },
-			},
-		},
-	},
+	darkMode: 'media',
+	theme: {},
 	variants: {},
 	plugins: [],
 };

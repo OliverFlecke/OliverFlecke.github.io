@@ -166,7 +166,8 @@ Here are the full solution.
 sudoku(Rows) :-
 	length(Rows, 9),
 	maplist(same_length(Rows), Rows),
-	append(Rows, Ns), Ns ins 1..9,
+	append(Rows, Ns),
+	Ns ins 1..9,
 	maplist(all_distinct, Rows),
 	transpose(Rows, Cols),
 	maplist(all_distinct, Cols),
