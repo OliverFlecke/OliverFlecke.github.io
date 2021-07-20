@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<title>{{ .Title }} | {{ .Site.Title }}</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="author" content="Oliver Fleckenstein" />
@@ -8,10 +9,14 @@
 			name="description"
 			content="Blog, notes and everything else for Oliver Fleckenstein"
 		/>
-		<title>{{ .Title }} | {{ .Site.Title }}</title>
+		<meta name="keywords" content="development, notes" />
 		<link href="/css/main.css" rel="stylesheet" />
+
+		<meta name="robots" content="follow"/>
+		<meta name="color-scheme" content="dark light"/>
+		<meta name="theme-color" content="#4C1D95"/>
 	</head>
-	<body class="pb-4 bg-gray-200 dark:bg-gray-900">
+	<body class="pb-4 bg-coolGray-100 dark:bg-gray-900">
 		{{ partial "header.html" }}
 		<div class="px-6 flex flex-col justify-center items-center">
 			<main class="w-full max-w-2xl">

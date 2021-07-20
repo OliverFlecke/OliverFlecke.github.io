@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
 	mode: 'jit',
 	future: {
@@ -10,7 +12,7 @@ module.exports = {
 		content: ['**/*.html'],
 	},
 	darkMode: 'media',
-	theme: {},
+	theme: { colors: { ...colors } },
 	variants: {},
 	plugins: [],
 };
