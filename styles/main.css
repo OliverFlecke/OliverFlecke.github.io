@@ -15,8 +15,10 @@ body {
 }
 
 .markdown {
+	@apply max-w-prose;
+
 	& p {
-		@apply max-w-2xl break-words py-2;
+		@apply max-w-prose break-words py-2 text-justify;
 	}
 
 	& a {
