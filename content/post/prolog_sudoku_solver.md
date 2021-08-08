@@ -1,5 +1,5 @@
 ---
-title: Solving every Sudoku before breakfast
+title: Sudoku solver in Prolog
 date: 2020-10-31
 ---
 
