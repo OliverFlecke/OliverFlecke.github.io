@@ -5,6 +5,7 @@
 	{{ range .Sections }}
 		{{ range .Pages }}
 			{{ partial "post" . }}
+			<hr class="my-2 max-w-prose" />
 		{{ end }}
 	{{ end }}
 </main>
