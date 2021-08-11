@@ -29,18 +29,23 @@ body {
 		@apply text-sm p-1 overflow-y-scroll;
 	}
 
+	& h2, h3, h4, h5, h6 {
+		@apply text-lime-700 dark:text-lime-600 pt-2;
+	}
+
 	& h2 {
-		@apply text-lg font-bold pt-2 text-lime-700 dark:text-lime-600;
+		@apply text-lg font-bold pt-4;
 	}
 
 	& h3 {
-		@apply text-lg pt-2 text-lime-700 dark:text-lime-600;
+		@apply text-lg pt-4;
 	}
 
 	& ul {
 		@apply mx-4;
 		& li {
 			@apply mx-2 list-disc;
+			font-family: Georgia;
 		}
 	}
 }

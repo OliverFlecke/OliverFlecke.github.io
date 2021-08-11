@@ -12,8 +12,9 @@ I'm a software developer for the web and mobile, and I always enjoy new challeng
 - C# (.NET Core / ASP NET / Xamarin)
 - Python
 - F#
-- Java
 - Swift
+- Java
+- C/C++
 
 I have dappled around with several other languages, and always find it interesting to see how different tools try to solve the same problems.
 
