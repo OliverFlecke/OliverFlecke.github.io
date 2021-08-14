@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>{{ .Title }} | {{ .Site.Title }}</title>
 		<meta charset="utf-8" />
+		<title>{{ .Title }} | {{ .Site.Title }}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="author" content="Oliver Fleckenstein" />
 		<meta
@@ -16,7 +16,7 @@
 		<meta name="color-scheme" content="dark light"/>
 		<meta name="theme-color" content="#4C1D95"/>
 
-		<script async defer data-domain="oliverflecke.me" src="https://plausible.oliverflecke.me/js/plausible.js"></script>
+		<script async defer data-api="https://plausible.oliverflecke.me/api/event" data-domain="oliverflecke.me" src="https://plausible.oliverflecke.me/js/script.js"></script>
 	</head>
 	<body class="pb-4 bg-coolGray-100 dark:bg-gray-900">
 		{{ partial "header.html" }}
