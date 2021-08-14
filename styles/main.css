@@ -2,6 +2,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+html {
+	text-size-adjust: 100%;
+}
+
 body {
 	@apply text-black dark:text-gray-200;
 
