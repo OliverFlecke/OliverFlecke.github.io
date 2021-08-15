@@ -17,6 +17,12 @@ body {
 	@apply rounded p-2 bg-blue-500 text-gray-200;
 }
 
+footer {
+	& a {
+		@apply underline;
+	}
+}
+
 .markdown {
 	@apply max-w-prose;
 
@@ -51,5 +57,9 @@ body {
 			@apply mx-2 list-disc;
 			font-family: Georgia;
 		}
+	}
+
+	& div.highlight pre {
+		@apply rounded;
 	}
 }

@@ -4,11 +4,8 @@ date: 2021-08-11
 draft: false
 ---
 
-## TL;DR
-
-Link to code: [proxy server](https://github.com/oliverflecke/github-oauth-proxy) and frontend application (to be added).
-
 ## Introduction
+
 For a recent project, I wanted a way to authenticate users, but without all the struggle of managing users and their data.
 This was for a frontend, single-page application (SPA) where everything could be served as static HTML/CSS/JS files.
 My solution was to allow users to sign in with their Github credentials using OAuth.
@@ -17,6 +14,10 @@ This is the best of both worlds: I won't have to store any user data or think mu
 Github provide [some good documentation](https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps#web-application-flow) for how to perform this flow from inside a web browser, with one minor issue: [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 Because one of the calls to Github's API does not allow CORS, meaning you cannot call it from outside Github's domain, it is not possible to complete the OAuth flow entirely in the browser.
 But [later](#getting-an-access-token) we will see a relative simple solution to get around this problem.
+
+## TL;DR
+
+Link to code: [proxy server](https://github.com/oliverflecke/github-oauth-proxy) and frontend application (to be added).
 
 ## The authentication flow
 

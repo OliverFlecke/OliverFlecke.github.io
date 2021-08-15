@@ -3,10 +3,6 @@ title: Sudoku solver in Prolog
 date: 2020-10-31
 ---
 
-## TL;DR
-
-Just want to see the code? You can find it [here on GitHub](https://github.com/OliverFlecke/algorithms-prolog/blob/master/src/sudoku.pl).
-
 ## Primer
 
 A few days ago, I was doing a [Sudoku](https://en.wikipedia.org/wiki/Sudoku), a puzzle game similar to cross word puzzles, but where the goal is to fill out every cell with a number.
@@ -24,12 +20,15 @@ They suggested [brute-force](https://en.wikipedia.org/wiki/Brute-force_search) a
 However, these solutions do not really scale well with the problem, and it is quite ease to create sudoku problems that they fail to solve (at least before I hit ctrl+c).
 
 Another solution is to use [Knuth's Algorithm X](https://en.wikipedia.org/wiki/Knuth%27s_Algorithm_X) to model the problem as an *exact cover* problem.
-This promise to be able to solve must sudokus rather quickly, and I thought, this must be the road to follow.
-I went to bed, planning to give this a go in the morning.
+This promise to be able to solve must Sudokus rather quickly, and I thought, this must be the road to follow.
+
+## TL;DR
+
+Just want to see the code? You can find it [here on GitHub](https://github.com/OliverFlecke/algorithms-prolog/blob/master/src/sudoku.pl).
 
 ## Enter Prolog
 
-I woke up with another idea for a solution: [Prolog](https://en.wikipedia.org/wiki/Prolog).
+I got another idea for a solution: [Prolog](https://en.wikipedia.org/wiki/Prolog).
 Prolog is a programming language like no other, defined as a *logic programming* language, which is fantastic at solve some set of problems, like constraint problems (sudoku).
 It had been a while since I had used this language, but I dusted off the old Prolog shelf, booted up my terminal, and did a quick `brew install swi-prolog` and was up and running.
 

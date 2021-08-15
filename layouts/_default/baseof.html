@@ -21,13 +21,13 @@
 			src="https://plausible.oliverflecke.me/js/script.js"
 		></script>
 	</head>
-	<body class="pb-4 bg-coolGray-100 dark:bg-gray-900">
+	<body class="bg-coolGray-100 dark:bg-gray-900 min-h-screen flex flex-col">
 		{{ partial "header.html" }}
-		<div class="px-6 flex flex-col justify-center items-center">
-			<main class="w-full max-w-2xl">
+		<main class="flex-grow h-full px-6 pb-4 flex flex-col items-center">
+			<div class="w-full max-w-2xl">
 				{{ block "main" . }} {{ end }} {{ block "footer" . }} {{ end }}
-			</main>
-		</div>
+			</div>
+		</main>
 		{{ partial "footer.html" }}
 	</body>
 </html>

@@ -1,12 +1,12 @@
 {{ define "main" }}
-<main class="w-full max-w-2xl">
 	<section>{{ .Content }}</section>
 
 	{{ range .Sections }}
-		{{ range .Pages }}
+		{{ range first 1 .Pages }}
 			{{ partial "post" . }}
 			<hr class="my-2 max-w-prose" />
 		{{ end }}
 	{{ end }}
-</main>
+
+	<a class="underline" href="/post">More posts</a>
 {{ end }}
