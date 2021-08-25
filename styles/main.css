@@ -13,6 +13,10 @@ body {
 		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+.font-body {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 .btn {
 	@apply rounded p-2 bg-blue-500 text-gray-200;
 }

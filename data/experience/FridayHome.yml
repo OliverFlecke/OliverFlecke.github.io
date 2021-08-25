@@ -1,5 +1,38 @@
 Company: Friday Home
 Location: Copenhagen, Denmark
 Start: 2019-01-01
+End: 2021-09-30
 JobTitle: Software Engineer
-Description: My responsibilities included; developing mobile apps for Android and iOS using Xamarin for communicating with and controlling Friday's smart home products, building backend API, frontend (.NET Core and React), and website (Umbraco), and implementing Bluetooth communication in app and firmware.
+Description: |
+  At Friday Home, I was part of a small development team responsible for the design, production and software development of a BLE and WiFi, HomeKit certified, smart lock.
+  My responsibilities included; developing mobile apps for Android and iOS using Xamarin Forms, building backend API (.NET 3/5), frontend (HTML/CSS, React & TypeScript), and website (Umbraco), and implementing Bluetooth communication in app and firmware.
+Details: |
+  My time at Friday was full of many different learning experiences.
+  Our development team was small, which allowed/required me to take the responsibility on several of the company's products.
+
+  My first tasks where focused around mobile apps on Android and iOS.
+  We choose to develop new apps using Xamarin Forms to maximize shared coded between platforms.
+  One of the more challenging aspects was to implement a Bluetooth (BLE) stack on both platforms, that could abstract away the necessary details.
+  The best and most interesting feature I developed was auto unlock, where geofencing on the user's mobile was used to detect when they arrived home, triggering a background scan and connect to our smart lock, making the user's phone automatically unlock their door when they arrive home.
+
+  A REST API was implemented in C# (.NET 3.1/5) to manage Friday's products.
+  This API contained both management of users, their mobile devices and Friday devices, all connected to a PostgreSQL database.
+  Through the API, new locks could be setup, guest could be invited to use the lock through phone number or email, and WiFi connected Friday devices could sync directly with their digital clone.
+
+  Along with the API, I also build a authentication server using [Identity Server](https://github.com/IdentityServer/IdentityServer4) to support login with different OAuth 2.0 flows, such as the Authorization Code with PKCE and Client Credentials flow.
+  This meant having single sign-on along with a simple, single login page for users, while third-party partners could easily connect to our API as well.
+
+  On top on the API, we also build a web frontend in [React](https://reactjs.net/) and [TypeScript](https://www.typescriptlang.org/).
+  This allowed for a better overview of organizations and their locks, along with a **access matrix** that allowed an administrator to easily get an overview of which groups have access to which locks, and grant or revoke users' access.
+
+  I was also assisting in developing parts of the firmware for the Friday Lock DUO product.
+  My primary responsibility was around the protocol layer, where we utilized [Protocol Buffers](https://developers.google.com/protocol-buffers/) to create language agnostic message structures which could be shared between the firmware, mobile and cloud platforms.
+  As the DUO lock was capable of transmitting through both Bluetooth and WiFi, we build a framework capable of syncing with mobile devices and our server side through the same message structures.
+  For communication with our server, we used the MQTT protocol for a publish/observer pattern.
+
+  Other interesting parts of developing firmware for the smart lock included: ensuring it ran power efficient while still being responsive, controlling and calibrating the motor to many (many!) different lock types, and implementing everything to be compliant with Apple's HomeKit protocol.
+  Part of the HomeKit compliance also included implementing the Software Token Authentication Server.
+
+  Part of my time at Friday I spend in Taiwan together with our parters [Brinno](https://brinno.com/).
+  Here we developed the software to track the production of Friday's products, along with implementing a special factory-testing firmware, that allowed us to easily exercise and verify that all components of the hardware was working as expected.
+  We build a infrastructure where we automatically gathered test results, images, and tracking information for every single device, allowing us to better track defects and issues with devices.

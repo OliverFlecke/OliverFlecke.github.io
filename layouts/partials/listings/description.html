@@ -1,1 +1,10 @@
-<p class="text-black dark:text-white text-sm max-w-lg">{{ .Description }}</p>
+<div class="text-sm max-w-lg font-body">
+	<p class="text-justify leading-normal text-black dark:text-white">{{ .Description }}</p>
+
+	{{ if .Details }}
+	<details class="pt-2 markdown">
+		<summary class="text-sm text-gray-700 dark:text-gray-400">More</summary>
+		{{ .Details | markdownify }}
+	</details>
+	{{ end}}
+</div>
