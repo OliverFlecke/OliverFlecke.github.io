@@ -1,5 +1,7 @@
 <div class="text-sm max-w-lg font-body">
-	<p class="text-justify leading-normal text-black dark:text-white">{{ .Description }}</p>
+	<div class="markdown">
+		{{ .Description | markdownify }}
+	</div>
 
 	{{ if .Details }}
 	<details class="pt-2 markdown">
