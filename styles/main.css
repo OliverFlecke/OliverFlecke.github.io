@@ -21,6 +21,10 @@ body {
 	@apply rounded p-2 bg-blue-500 text-gray-200;
 }
 
+.nav-link {
+	@apply hover:underline hover:opacity-50 transition-opacity duration-500;
+}
+
 footer {
 	& a {
 		@apply underline;
