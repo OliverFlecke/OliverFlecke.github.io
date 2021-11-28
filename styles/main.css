@@ -43,7 +43,7 @@ footer {
 	@apply max-w-prose;
 
 	& p {
-		@apply max-w-prose break-words py-2 text-justify leading-normal;
+		@apply max-w-prose break-all py-2 text-justify leading-normal;
 		font-family: Georgia;
 	}
 

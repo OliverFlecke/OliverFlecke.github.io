@@ -23,10 +23,8 @@
 	</head>
 	<body class="bg-coolGray-100 dark:bg-gray-900 min-h-screen flex flex-col">
 		{{ partial "header.html" }}
-		<main class="flex-grow h-full px-6 pb-4 flex flex-col items-center">
-			<div class="w-full max-w-2xl">
+		<main class="flex-grow h-full w-screen pb-4 flex flex-col items-center">
 				{{ block "main" . }} {{ end }} {{ block "footer" . }} {{ end }}
-			</div>
 		</main>
 		{{ partial "footer.html" }}
 	</body>
