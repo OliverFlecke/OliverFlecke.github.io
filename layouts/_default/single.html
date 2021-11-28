@@ -4,7 +4,6 @@
 <section class="text-gray-900 dark:text-gray-300 markdown">
 	{{ .Content }}
 </section>
-
 <section>
 	<h2 id="experience" class="text-xl font-bold pt-2 text-lime-700 dark:text-lime-600">Experience</h2>
 	{{ range sort $.Site.Data.experience "Start" "desc" }} {{ partial "experience.html" . }} {{ end }}

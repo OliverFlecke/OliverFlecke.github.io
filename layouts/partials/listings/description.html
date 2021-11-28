@@ -1,11 +1,11 @@
 <div class="text-sm max-w-lg font-body">
-	<div class="markdown">
+	<div class="markdown text-justify">
 		{{ .Description | markdownify }}
 	</div>
 
 	{{ if .Details }}
 	<details class="pt-2 markdown">
-		<summary class="text-sm text-gray-700 dark:text-gray-400">More</summary>
+		<summary class="text-sm text-justify text-gray-700 dark:text-gray-400">More</summary>
 		{{ .Details | markdownify }}
 	</details>
 	{{ end}}
