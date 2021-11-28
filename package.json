@@ -4,11 +4,13 @@
 	"author": "Oliver Fleckenstein <oliverfl@live.dk>",
 	"license": "MIT",
 	"scripts": {
+		"dev": "concurrently --kill-others --names \"HUGO,CSS\" -c \"bgBlue.bold,bgGreen.bold\" \"hugo server\" \"yarn css\"",
 		"css": "TAILWIND_MODE=watch yarn postcss styles/main.css -o static/css/main.css -v --watch",
 		"build": "postcss styles/main.css -o static/css/main.css"
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.2.5",
+		"concurrently": "^6.4.0",
 		"cssnano": "^5.0.6",
 		"postcss": "^8.2.9",
 		"postcss-cli": "^8.3.1",
