@@ -1,7 +1,7 @@
 ---
 title: About
 date: 2020-10-28
-template: about.html
+type: about
 ---
 
 I'm Oliver Fleckenstein.
