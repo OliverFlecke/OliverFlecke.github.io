@@ -14,6 +14,7 @@ I have always enjoyed working both independently and in teams with talented peop
 
 - C# (.NET 3+ / ASP NET / Xamarin)
 - Python
+- TypeScript/JavaScript
 - F#
 - Swift
 - Java
@@ -23,7 +24,7 @@ I have dappled around with several other languages, and always find it interesti
 
 ### Web technologies
 
-TypeScript/JavaScript, React, NodeJS, HTML/CSS
+React, NodeJS, HTML/CSS, SASS, PHP
 
 ### Embedded
 
