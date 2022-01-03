@@ -1,16 +1,19 @@
 {{ define "main" }}
-	<div class="px-6 w-full max-w-2xl">
-			<section>
-				{{ .Content }}
-			</section>
 
-		{{ range .Sections }}
-			{{ range first 1 .Pages }}
-				{{ partial "post" . }}
-				<hr class="my-2 max-w-prose" />
-			{{ end }}
-		{{ end }}
-	</div>
+<section class="px-6 pt-6 text-gray-900 dark:text-gray-300 markdown">
+	{{ .Content }}
+</section>
 
-	<a class="underline" href="/post">More posts</a>
+<section class="px-6">
+	<h2 id="experience" class="text-xl font-bold pt-2 text-lime-700 dark:text-lime-600">Experience</h2>
+	{{ range sort $.Site.Data.experience "Start" "desc" }} {{ partial "experience.html" . }} {{ end }}
+</section>
+
+<section class="px-6">
+	<h2 id="education" class="text-xl font-bold pt-2 text-lime-700 dark:text-lime-600">Education</h2>
+	{{ range sort $.Site.Data.education "End" "desc" }}
+	{{ partial "education.html" . }}
+	{{ end }}
+</section>
+
 {{ end }}
