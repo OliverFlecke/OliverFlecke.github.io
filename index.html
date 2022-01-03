@@ -2,7 +2,7 @@
 <head>
 <meta name=generator content="Hugo 0.89.4">
 <meta charset=utf-8>
-<title>Home | OliverFlecke</title>
+<title>About | OliverFlecke</title>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=author content="Oliver Fleckenstein">
 <meta name=description content="Blog, notes and everything else for Oliver Fleckenstein">
@@ -35,272 +35,207 @@
 </div>
 <ul id=nav-items class="w-full hidden flex-grow pt-4 lg:pt-0 lg:w-auto lg:flex lg:justify-end lg:space-x-8 uppercase text-xl text-gray-100">
 <li><a class=nav-link href=/>Home</a></li>
-<li><a class=nav-link href=/about>About</a></li>
-<li><a class=nav-link href=/about#experience>Experience</a></li>
+<li><a class=nav-link href=/#experience>Experience</a></li>
 <li><a class=nav-link href=/post>Posts</a></li>
 </ul>
 </nav>
 </div>
 </header>
 <main class="flex-grow h-full w-screen pb-4 flex flex-col items-center">
-<div class="px-6 w-full max-w-2xl">
-<section>
-</section>
-<section class="text-gray-900 dark:text-gray-300">
-<h2 class="text-2xl pt-4 text-lime-700 dark:text-lime-600">
-<a href=https://oliverflecke.me/post/github_auth_with_spa/>Authenticate with Github on a Single-Page Application</a>
-</h2>
-<div class=space-x-4>
-<time class="text-sm text-purple-700 dark:text-lime-500">2021-08-11</time>
-<span class="text-sm italic text-gray-600 dark:text-gray-400">Reading time: 8 minutes</span>
-</div>
-<div class=markdown>
-<h2 id=introduction>Introduction</h2>
-<p>For a recent project, I wanted a way to authenticate users, but without all the struggle of managing users and their data.
-This was for a frontend, single-page application (SPA) where everything could be served as static HTML/CSS/JS files.
-My solution was to allow users to sign in with their Github credentials using OAuth.
-This is the best of both worlds: I won&rsquo;t have to store any user data or think much about security, and users don&rsquo;t have to trust me with their email or password.</p>
-<p>Github provide <a href=https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps#web-application-flow>some good documentation</a> for how to perform this flow from inside a web browser, with one minor issue: <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS>Cross-Origin Resource Sharing (CORS)</a>.
-Because one of the calls to Github&rsquo;s API does not allow CORS, meaning you cannot call it from outside Github&rsquo;s domain, it is not possible to complete the OAuth flow entirely in the browser.
-But <a href=#getting-an-access-token>later</a> we will see a relative simple solution to get around this problem.</p>
-<h2 id=tldr>TL;DR</h2>
-<p>Link to code: <a href=https://github.com/oliverflecke/github-oauth-proxy>proxy server</a> and frontend application (to be added).</p>
-<h2 id=the-authentication-flow>The authentication flow</h2>
-<p>First of, an overview of the flow.</p>
+<section class="px-6 pt-6 text-gray-900 dark:text-gray-300 markdown">
+<p>I&rsquo;m Oliver Fleckenstein, a <strong>software engineer</strong> developing web, mobile, and embedded applications.
+Passionate about technology and building software to solve problems.
+Curious as a person and I always eager for new challenges and opportunities to learn and grow from.
+I have always enjoyed working both independently and in teams with talented people from all over the world.</p>
+<h3 id=programming-languages>Programming languages</h3>
 <ul>
-<li>Starting from our SPA, when the user clicks &lsquo;login&rsquo;, the browser redirects to <code>github.com/login/oauth/authorize</code>. This page will display Github&rsquo;s email/password prompt that external users should be familiar with.</li>
-<li>After the user has entered their credentials, the browser redirects back to our website, with a code that our website can exchange for an <code>access token</code>.</li>
-<li>Lastly, after having received the access token we can call Github&rsquo;s APIs!</li>
+<li>C# (.NET 3+ / ASP NET / Xamarin)</li>
+<li>Python</li>
+<li>TypeScript/JavaScript</li>
+<li>F#</li>
+<li>Swift</li>
+<li>Java</li>
+<li>C/C++</li>
 </ul>
-<p>Before getting started with coding, we have to register an OAuth application at Github.
-Github <a href=https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app>provides a good guide for creating an OAuth App</a>, but all you have to do is visit <a href=https://github.com/settings/developers>https://github.com/settings/developers</a>, click create and enter the app information.</p>
-<p>The most important part is the <code>authorization callback url</code> (which can always be changed later), with is the url that the browser will redirect back to after a successful user login.
-This also means, that even if others steal your client id and secret, they can redirect users to Github&rsquo;s website and make them login, but the user&rsquo;s browser will always be redirected back to the specified callback url.</p>
-<p>Grab the client id and generate a client secret.
-This secert should be kept, well, secret, and should therefore not be published with the client code or checked in to source control.
-More on that later.</p>
-<h2 id=redirecting-to-github-to-request-a-users-identity>Redirecting to Github to request a user&rsquo;s identity</h2>
-<p>First step of the process is to redirect the user to Github, which can be done with a simple link to the <code>authorize</code> endpoint.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-html data-lang=html>&lt;<span style=color:#ff79c6>a</span> <span style=color:#50fa7b>href</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;https://github.com/login/oauth/authorize?client_id=&lt;your_client_id&gt;&amp;state=&lt;generated_state&gt;&#34;</span>&gt;
-	Login
-&lt;/<span style=color:#ff79c6>a</span>&gt;
-</code></pre></div><p>The <code>your_client_id</code> is the one we created in the previous step, and can safely be added here.
-<code>generated_state</code> is an <strong>unguessable random string</strong> which is used to protect agains cross-site request forgery attacks.</p>
-<p>There are <a href=https://docs.github.com/en/developers/apps/building-oauth-apps/authorizing-oauth-apps#parameters>other paramters</a> that can be provided, such as the <code>redirect_url</code> but leaving this out will redirect the browser to the one we provided to Github when creating the OAuth application.
-Another usefull one is the <a href=https://docs.github.com/en/apps/building-oauth-apps/understanding-scopes-for-oauth-apps>scopes</a>, which allow you to request access to different parts of Github&rsquo;s API.
-However, as I&rsquo;m only after getting the user&rsquo;s identity, we can leave this empty and it will only allow us to access public information.</p>
-<h2 id=getting-an-access-token>Getting an access token</h2>
-<p>After the user has logged in, the browser is redirected back to you site (by the provided callback url).
-Passed as query parameters is a <code>code</code> and <code>state</code> value.
-The <code>state</code> <strong>must</strong> be the same value as we provided when redirecting the user to Github in the first step - if not, we must abort the flow.
-The <code>code</code> is prof of the user&rsquo;s identity, and can be exchanged within the next 10 minutes for an access token.</p>
-<p>A simple way to get and check the <code>code</code> and <code>state</code> is to use <a href=https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams><code>URLSearchParams</code></a>.
-Passing it <code>window.location.search</code> will make it parse the query parameters and give you a simple object to retreive the values from.
-Below is a code snippet to parse and verify that <code>code</code> and <code>state</code> is in the query string and that the <code>state</code> matches the expected state.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js><span style=color:#ff79c6>const</span> params <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>new</span> URLSearchParams(<span style=color:#8be9fd;font-style:italic>window</span>.location.search);
-<span style=color:#ff79c6>if</span> (<span style=color:#ff79c6>!</span>params.has(<span style=color:#f1fa8c>&#39;code&#39;</span>)) {
-	<span style=color:#ff79c6>return</span>;
-}
-
-<span style=color:#ff79c6>if</span> (<span style=color:#ff79c6>!</span>params.has(<span style=color:#f1fa8c>&#39;state&#39;</span>) <span style=color:#ff79c6>||</span> params.get(<span style=color:#f1fa8c>&#39;state&#39;</span>) <span style=color:#ff79c6>!==</span> expectedState) {
-	<span style=color:#ff79c6>return</span>;
-}
-
-<span style=color:#ff79c6>const</span> code <span style=color:#ff79c6>=</span> params.get(<span style=color:#f1fa8c>&#39;code&#39;</span>);
-</code></pre></div><p>Next we can exchange the <code>code</code> for an <code>access token</code>.
-This is done by the following HTTP POST call, which can be done with JavaScript&rsquo;s <code>fetch</code>:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>fetch(<span style=color:#f1fa8c>&#39;https://github.com/login/oauth/access_token/&#39;</span>, {
-	method<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;POST&#39;</span>,
-	headers<span style=color:#ff79c6>:</span> {
-		Accept<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;application/json&#39;</span>,
-		<span style=color:#f1fa8c>&#39;Content-Type&#39;</span><span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;application/json&#39;</span>,
-	},
-	body<span style=color:#ff79c6>:</span> JSON.stringify({
-		code,
-		client_id,
-		client_secret,
-	}),
-})
-</code></pre></div><p>However, when running this inside a browser, we get an error.
-Looking in the network tab we see:</p>
-<p><img src=/media/github-auth-cors.png alt="Screenshot of network tab in browser showing a CORS error"></p>
-<p>Github`s OAuth endpoints <a href=https://github.com/isaacs/github/issues/330>does not currently support browser-only flows</a>, as it is required to provide a client secret.
-Secrets can inherently not be trusted if sent to the client, so we must proxy requests to the token endpoint through our own, trusted server.</p>
-<p>Below is a small NodeJS server using <a href=https://expressjs.com/>express</a> to provide an endpoint to which we can proxy our requests (the full source code can be found <a href=https://github.com/oliverflecke/github-oauth-proxy>on Github in this repository</a>).</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js><span style=color:#ff79c6>const</span> fetch <span style=color:#ff79c6>=</span> require(<span style=color:#f1fa8c>&#39;node-fetch&#39;</span>);
-<span style=color:#ff79c6>const</span> express <span style=color:#ff79c6>=</span> require(<span style=color:#f1fa8c>&#39;express&#39;</span>);
-<span style=color:#ff79c6>const</span> cors <span style=color:#ff79c6>=</span> require(<span style=color:#f1fa8c>&#39;cors&#39;</span>);
-
-require(<span style=color:#f1fa8c>&#39;dotenv&#39;</span>).config();
-<span style=color:#ff79c6>const</span> port <span style=color:#ff79c6>=</span> process.env.PORT <span style=color:#ff79c6>||</span> <span style=color:#bd93f9>80</span>;
-<span style=color:#ff79c6>const</span> client_id <span style=color:#ff79c6>=</span> process.env.CLIENT_ID;
-<span style=color:#ff79c6>const</span> client_secret <span style=color:#ff79c6>=</span> process.env.CLIENT_SECRET;
-
-<span style=color:#ff79c6>const</span> app <span style=color:#ff79c6>=</span> express();
-
-app.use(cors({
-	origin<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;https://example.com&#39;</span>,
-}));
-
-<span style=color:#ff79c6>const</span> GITHUB_AUTH_ACCESSTOKEN_URL <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#39;https://github.com/login/oauth/access_token/&#39;</span>;
-
-app.post(<span style=color:#f1fa8c>&#39;/authorize&#39;</span>, (req, res) =&gt; {
-	<span style=color:#ff79c6>const</span> code <span style=color:#ff79c6>=</span> req.query.code;
-
-	fetch(GITHUB_AUTH_ACCESSTOKEN_URL, {
-		method<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;POST&#39;</span>,
-		headers<span style=color:#ff79c6>:</span> {
-			Accept<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;application/json&#39;</span>,
-			<span style=color:#f1fa8c>&#39;Content-Type&#39;</span><span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;application/json&#39;</span>,
-		},
-		body<span style=color:#ff79c6>:</span> JSON.stringify({
-			client_id,
-			client_secret,
-			code,
-		}),
-	})
-		.then(<span style=color:#ff79c6>async</span> (response) =&gt; {
-			<span style=color:#ff79c6>const</span> json <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>await</span> response.json();
-			<span style=color:#ff79c6>if</span> (<span style=color:#f1fa8c>&#39;error&#39;</span> <span style=color:#ff79c6>in</span> json) {
-				res.status(<span style=color:#bd93f9>400</span>).send(json);
-			} <span style=color:#ff79c6>else</span> {
-				res.send(json);
-			}
-		})
-		.<span style=color:#ff79c6>catch</span>(<span style=color:#8be9fd;font-style:italic>function</span> (error) {
-			console.error(<span style=color:#f1fa8c>&#39;Error &#39;</span> <span style=color:#ff79c6>+</span> error.message);
-			res.status(<span style=color:#bd93f9>400</span>).send(error.message);
-		});
-});
-
-app.get(<span style=color:#f1fa8c>&#39;/&#39;</span>, <span style=color:#8be9fd;font-style:italic>function</span> (req, res) {
-	res.send(<span style=color:#f1fa8c>&#39;OK&#39;</span>);
-});
-
-app.listen(port, <span style=color:#8be9fd;font-style:italic>function</span> () {
-	console.log(<span style=color:#f1fa8c>&#39;Authorization proxy is running&#39;</span>);
-});
-</code></pre></div><p>To run this, you will need to install a few dependencies:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>yarn add express cors dotenv node<span style=color:#ff79c6>-</span>fetch
-</code></pre></div><h3 id=rundown-of-the-code>Rundown of the code</h3>
-<p>Below is a rundown of the server side code, if needed.</p>
-<h4 id=configuring-the-server>Configuring the server</h4>
-<p>The first few lines simply imports the libraries we need.
-The first interisting part is using the <code>dotenv</code> package, which is used to read environment variables from a <code>.env</code> file (primarily used for running the app locally).
-As we want to avoid hardcoding secrets into our source code, we can instead save them the <code>.env</code> file and read them when the application starts.
-This also allows us to provide the values when running the app on a server.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>require(<span style=color:#f1fa8c>&#39;dotenv&#39;</span>).config();
-<span style=color:#ff79c6>const</span> port <span style=color:#ff79c6>=</span> process.env.PORT <span style=color:#ff79c6>||</span> <span style=color:#bd93f9>80</span>;
-<span style=color:#ff79c6>const</span> client_id <span style=color:#ff79c6>=</span> process.env.CLIENT_ID;
-<span style=color:#ff79c6>const</span> client_secret <span style=color:#ff79c6>=</span> process.env.CLIENT_SECRET;
-</code></pre></div><p>The <code>.env</code> file would look something like and be placed in the root of the project directory:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-sh data-lang=sh><span style=color:#8be9fd;font-style:italic>CLIENT_ID</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#39;&lt;your_client_id&gt;&#39;</span>
-<span style=color:#8be9fd;font-style:italic>CLIENT_SECRET</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#39;&lt;your_client_secret&gt;&#39;</span>
-<span style=color:#8be9fd;font-style:italic>PORT</span><span style=color:#ff79c6>=</span><span style=color:#bd93f9>8000</span>
-</code></pre></div><p>Next the app/server that should listen is created, along with adding support for CORS (which is the whole reason we are doing this).
-Here you should provide the origin for your own website, which will make it sure it only works your domain.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js><span style=color:#ff79c6>const</span> app <span style=color:#ff79c6>=</span> express();
-
-app.use(cors({
-	origin<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;https://example.com&#39;</span>,
-}));
-</code></pre></div><h4 id=proxying-the-request-to-github>Proxying the request to Github</h4>
-<p>To listen for <code>POST</code> requests in express, call <code>app.post</code> and provide it with the url to listen at along with a callback to process the request.
-In the code is added an endpoint at <code>/authorize</code> which we will use to proxy the request to Github.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>app.post(<span style=color:#f1fa8c>&#39;/authorize&#39;</span>, (req, res) =&gt; {
-	...
-}
-</code></pre></div><p>Inside the callback, a few things are going on.
-First off, we pull the <code>code</code> out of request query</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>	<span style=color:#ff79c6>const</span> code <span style=color:#ff79c6>=</span> req.query.code;
-</code></pre></div><p>To match the browser as much as possible, I use <code>node-fetch</code> to perform exactly the same request as we did from the browser.
-The code for calling Github&rsquo;s token endpoint therefore looks the same as it did in the browser.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>	fetch(GITHUB_AUTH_ACCESSTOKEN_URL, {
-		method<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;POST&#39;</span>,
-		headers<span style=color:#ff79c6>:</span> {
-			Accept<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;application/json&#39;</span>,
-			<span style=color:#f1fa8c>&#39;Content-Type&#39;</span><span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;application/json&#39;</span>,
-		},
-		body<span style=color:#ff79c6>:</span> JSON.stringify({
-			client_id,
-			client_secret,
-			code,
-		}),
-	})
-</code></pre></div><p>Lastly, we have to send the respond from Github back to the caller.
-When the fetch <code>Promise</code> resolves, we can read the json response, check if it contains an error, and otherwise just send it back to the caller (this is done with <code>res.send(json)</code>).
-In case of an error in the response or if the fetch call itself fails, the error is also send back to the client.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>		.then(<span style=color:#ff79c6>async</span> (response) =&gt; {
-			<span style=color:#ff79c6>const</span> json <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>await</span> response.json();
-			<span style=color:#ff79c6>if</span> (<span style=color:#f1fa8c>&#39;error&#39;</span> <span style=color:#ff79c6>in</span> json) {
-				res.status(<span style=color:#bd93f9>400</span>).send(json);
-			} <span style=color:#ff79c6>else</span> {
-				res.send(json);
-			}
-		})
-		.<span style=color:#ff79c6>catch</span>(<span style=color:#8be9fd;font-style:italic>function</span> (error) {
-			console.error(<span style=color:#f1fa8c>&#39;Error &#39;</span> <span style=color:#ff79c6>+</span> error.message);
-			res.status(<span style=color:#bd93f9>400</span>).send(error.message);
-		});
-</code></pre></div><h4 id=a-small-health-check-and-starting-the-app>A small health check and starting the app</h4>
-<p>It is often usefull to have a health check endpoint to verify that the application is running and listening as expected.
-The next few lines add this, by listening at the root <code>/</code> and always responding with <code>OK</code>.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>app.get(<span style=color:#f1fa8c>&#39;/&#39;</span>, <span style=color:#8be9fd;font-style:italic>function</span> (req, res) {
-	res.send(<span style=color:#f1fa8c>&#39;OK&#39;</span>);
-});
-</code></pre></div><p>Lastly, we start the application and make it listen to the provided <code>port</code>.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>app.listen(port, <span style=color:#8be9fd;font-style:italic>function</span> () {
-	console.log(<span style=color:#f1fa8c>&#39;Authorization proxy is running&#39;</span>);
-});
-</code></pre></div><h3 id=updating-the-client-code-to-call-the-proxy>Updating the client code to call the proxy</h3>
-<p>Now we are ready to use our proxy in our browser application.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>fetch(<span style=color:#f1fa8c>`</span><span style=color:#f1fa8c>${</span>authCors<span style=color:#f1fa8c>}</span><span style=color:#f1fa8c>?code=</span><span style=color:#f1fa8c>${</span>code<span style=color:#f1fa8c>}</span><span style=color:#f1fa8c>`</span>, {
-	method<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;post&#39;</span>,
-	headers<span style=color:#ff79c6>:</span> {
-		Accept<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>&#39;application/json&#39;</span>,
-	},
-})
-	.then(<span style=color:#ff79c6>async</span> (res) =&gt; {
-		<span style=color:#ff79c6>if</span> (res.status <span style=color:#ff79c6>===</span> <span style=color:#bd93f9>200</span>) {
-			<span style=color:#ff79c6>const</span> body <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>await</span> res.json();
-		}
-		<span style=color:#ff79c6>else</span> {
-			console.warn(<span style=color:#f1fa8c>`Got an unexpected status </span><span style=color:#f1fa8c>${</span>res.status<span style=color:#f1fa8c>}</span><span style=color:#f1fa8c>`</span>);
-		}
-	}
-</code></pre></div><p>Replace <code>authCors</code> with the URL to the proxy, and the code with the one we got from the callback from Github.
-The <code>body</code> returned from the proxy will then look like:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-json data-lang=json>{
-	<span style=color:#ff79c6>&#34;access_token&#34;</span>: <span style=color:#f1fa8c>&#34;FKBa0gzbI1...&#34;</span>,
-	<span style=color:#ff79c6>&#34;scopes&#34;</span>: <span style=color:#f1fa8c>&#34;&lt;the scopes you have requested&gt;&#34;</span>,
-	<span style=color:#ff79c6>&#34;token_type&#34;</span>: <span style=color:#f1fa8c>&#34;Bearer&#34;</span>
-}
-</code></pre></div><h3 id=deployment>Deployment</h3>
-<p>I like playing around with different tools and platforms to learn how they work and which options are out there.
-For this project, I have deployed the proxy server using <a href=https://www.heroku.com/>heroku</a>.
-At the time of writing, they allow you to create several lightweight application for you to test out.
-Simply sign up for an account, create an app, and go to the deploy tab for instructions to deploy the server directly from git.
-Otherwise have a look <a href=https://devcenter.heroku.com/articles/git>here for a full article on how to deploy the code</a>.</p>
-<h2 id=getting-the-user-info>Getting the user info</h2>
-<p>Now that we have an access token for the authorized user, we can use it to actually call Github&rsquo;s APIs.
-The goal for my application was simply to have a way to identify unique users, hence I did not include any scopes in the token request.
-To get a user&rsquo;s public information, we can use the <code>/user</code> endpoint.
-Below is a code snippet to request the user information from Github.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-js data-lang=js>fetch(<span style=color:#f1fa8c>&#39;https://api.github.com/user&#39;</span>, {
-	headers<span style=color:#ff79c6>:</span> {
-		Authorization<span style=color:#ff79c6>:</span> <span style=color:#f1fa8c>`token </span><span style=color:#f1fa8c>${</span>token<span style=color:#f1fa8c>}</span><span style=color:#f1fa8c>`</span>,
-	},
-})
-	.then(<span style=color:#ff79c6>async</span> (res) =&gt; {
-		<span style=color:#ff79c6>const</span> user <span style=color:#ff79c6>=</span> <span style=color:#ff79c6>await</span> res.json();
-		...
-	});
-</code></pre></div><p>The user object returned contains all the public information for the given user&rsquo;s profile, including Github username, id, email address, and profile picture.</p>
+<p>I have dappled around with several other languages, and always find it interesting to see how different tools try to solve problems.</p>
+<h3 id=web-technologies>Web technologies</h3>
+<p>React, NodeJS, HTML/CSS, SASS, PHP</p>
+<h3 id=embedded>Embedded</h3>
+<p>Experience with Nordic Semiconductor, Raspberry Pi and Arduino.
+Developed certified BLE HomeKit devices.</p>
+<h3 id=other-skills>Other skills</h3>
+<ul>
+<li>Git</li>
+<li>SQL (PostgreSQL, SQLite)</li>
+<li>Docker</li>
+<li>GitHub</li>
+<li>Azure DevOps</li>
+<li>Azure Cloud</li>
+</ul>
+</section>
+<section class=px-6>
+<h2 id=experience class="text-xl font-bold pt-2 text-lime-700 dark:text-lime-600">Experience</h2>
+<div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
+<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<time datetime=2019-08-01>2019</time> -
+<time datetime=2021-09-30>2021</time>
+</span>
+<span>
+<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Friday Home</h3>
+<span class="italic inline text-gray-700 dark:text-gray-400">Copenhagen, Denmark</span>
+</span>
+<pre class="text-black dark:text-gray-400 text-xs">Software Engineer</pre>
+<div class="text-sm max-w-lg font-body">
+<div class="markdown text-justify">
+At Friday Home, I was part of a small development team responsible for the design, production and software development of a BLE and WiFi, HomeKit certified, smart lock.
+My responsibilities included; developing mobile apps for Android and iOS using Xamarin Forms, building backend API (.NET 3/5), frontend (HTML/CSS, React & TypeScript), and website (Umbraco), and implementing Bluetooth communication in app and firmware.
+</div>
+<details class="pt-2 markdown">
+<summary class="text-sm text-justify text-gray-700 dark:text-gray-400">More</summary>
+<p>My time at Friday was full of many different learning experiences.
+Our development team was small, which allowed/required me to take the responsibility on several of the company&rsquo;s products.</p>
+<p>My first tasks where focused around mobile apps on Android and iOS.
+We choose to develop new apps using Xamarin Forms to maximize shared coded between platforms.
+One of the more challenging aspects was to implement a Bluetooth (BLE) stack on both platforms, that could abstract away the necessary details.
+The best and most interesting feature I developed was auto unlock, where geofencing on the user&rsquo;s mobile was used to detect when they arrived home, triggering a background scan and connect to our smart lock, making the user&rsquo;s phone automatically unlock their door when they arrive home.</p>
+<p>A REST API was implemented in C# (.NET 3.1/5) to manage Friday&rsquo;s products.
+This API contained both management of users, their mobile devices and Friday devices, all connected to a PostgreSQL database.
+Through the API, new locks could be setup, guest could be invited to use the lock through phone number or email, and WiFi connected Friday devices could sync directly with their digital clone.</p>
+<p>Along with the API, I also build a authentication server using <a href=https://github.com/IdentityServer/IdentityServer4>Identity Server</a> to support login with different OAuth 2.0 flows, such as the Authorization Code with PKCE and Client Credentials flow.
+This meant having single sign-on along with a simple, single login page for users, while third-party partners could easily connect to our API as well.</p>
+<p>On top on the API, we also build a web frontend in <a href=https://reactjs.net/>React</a> and <a href=https://www.typescriptlang.org/>TypeScript</a>.
+This allowed for a better overview of organizations and their locks, along with a <strong>access matrix</strong> that allowed an administrator to easily get an overview of which groups have access to which locks, and grant or revoke users' access.</p>
+<p>I was also assisting in developing parts of the firmware for the Friday Lock DUO product.
+My primary responsibility was around the protocol layer, where we utilized <a href=https://developers.google.com/protocol-buffers/>Protocol Buffers</a> to create language agnostic message structures which could be shared between the firmware, mobile and cloud platforms.
+As the DUO lock was capable of transmitting through both Bluetooth and WiFi, we build a framework capable of syncing with mobile devices and our server side through the same message structures.
+For communication with our server, we used the MQTT protocol for a publish/observer pattern.</p>
+<p>Other interesting parts of developing firmware for the smart lock included: ensuring it ran power efficient while still being responsive, controlling and calibrating the motor to many (many!) different lock types, and implementing everything to be compliant with Apple&rsquo;s HomeKit protocol.
+Part of the HomeKit compliance also included implementing the Software Token Authentication Server.</p>
+<p>Part of my time at Friday I spend in Taiwan together with our parters <a href=https://brinno.com/>Brinno</a>.
+Here we developed the software to track the production of Friday&rsquo;s products, along with implementing a special factory-testing firmware, that allowed us to easily exercise and verify that all components of the hardware was working as expected.
+We build a infrastructure where we automatically gathered test results, images, and tracking information for every single device, allowing us to better track defects and issues with devices.</p>
+</details>
+</div>
+</div>
+<div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
+<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<time datetime=2017-06-01>2017</time> -
+<time datetime=2019-05-31>2019</time>
+</span>
+<span>
+<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Microsoft</h3>
+<span class="italic inline text-gray-700 dark:text-gray-400">Kongens Lyngby, Denmark</span>
+</span>
+<pre class="text-black dark:text-gray-400 text-xs">Student Developer</pre>
+<div class="text-sm max-w-lg font-body">
+<div class="markdown text-justify">
+Worked on Business Central (Navision), as a part of the Microsoft Invoicing team. My position was focused on UX, primarily using TypeScript and React.
+</div>
+</div>
+</div>
+<div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
+<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<time datetime=2015-04-01>2015</time> -
+<time datetime=2016-05-31>2016</time>
+</span>
+<span>
+<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">IBM</h3>
+<span class="italic inline text-gray-700 dark:text-gray-400">Brøndby, Denmark</span>
+</span>
+<pre class="text-black dark:text-gray-400 text-xs">Student project assistant</pre>
+<div class="text-sm max-w-lg font-body">
+<div class="markdown text-justify">
+Worked to automate reporting of projects to clients from IBM’s project managing tool IBM Program Work Center (IPWC), which beforehand was done manually. This was done using VBA and HTML/CSS.
+</div>
+</div>
 </div>
 </section>
-<hr class="my-2 max-w-prose">
+<section class=px-6>
+<h2 id=education class="text-xl font-bold pt-2 text-lime-700 dark:text-lime-600">Education</h2>
+<div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
+<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<time datetime=2017-08-01>2017</time> -
+<time datetime=2019-08-01>2019</time>
+</span>
+<span>
+<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Technical University of Denmark</h3>
+<span class="italic inline text-gray-700 dark:text-gray-400">Copenhagen, Denmark</span>
+</span>
+<pre class="text-black dark:text-gray-400 text-xs">M.Sc. in Computer Science and Engineering</pre>
+<div class="text-sm max-w-lg font-body">
+<div class="markdown text-justify">
+Specializing in algorithms and intelligent systems.
+Courses included advanced algorithms, machine learning, logic based AI.
+My thesis was done in collaboration with <a href=https://www.mobile-industrial-robots.com/en/>MiR</a> and focused on how to get multiple robots to collaborate to solve problems.
 </div>
-<a class=underline href=/post>More posts</a>
+</div>
+</div>
+<div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
+<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<time datetime=2014-08-01>2014</time> -
+<time datetime=2017-06-30>2017</time>
+</span>
+<span>
+<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Technical University of Denmark</h3>
+<span class="italic inline text-gray-700 dark:text-gray-400">Copenhagen, Denmark</span>
+</span>
+<pre class="text-black dark:text-gray-400 text-xs">B.Sc. in Computer Science and Engineering</pre>
+<div class="text-sm max-w-lg font-body">
+<div class="markdown text-justify">
+Courses included programming with Object-Oriented, Functional, and logical languages, hardware and memory constrainted programming using C++, introductory and advanced algorithms, and cryptography.
+My bachelor thesis was focused on Multi-Agent Systems, which included taking part in the <a href=https://multiagentcontest.org/>Multi-Agent Contest</a>, where our solution took second place.
+</div>
+</div>
+</div>
+<div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
+<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<time datetime=2016-06-01>2016</time> -
+<time datetime=2016-11-30>2016</time>
+</span>
+<span>
+<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">University of New South Wales</h3>
+<span class="italic inline text-gray-700 dark:text-gray-400">Sydney, Australia</span>
+</span>
+<pre class="text-black dark:text-gray-400 text-xs">B.Sc. Study exchange</pre>
+<div class="text-sm max-w-lg font-body">
+<div class="markdown text-justify">
+As part of my bachelor Degree at DTU, I had an exchange semester abroad at UNSW in Sydney, Australia, with focus on compilers, Computer Vision and Graphics.
+</div>
+</div>
+</div>
+<div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
+<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<time datetime=2012-01-01>2012</time> -
+<time datetime=2014-12-31>2014</time>
+</span>
+<span>
+<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Academy for Talented Youth</h3>
+<span class="italic inline text-gray-700 dark:text-gray-400">Zealand, Denmark</span>
+</span>
+<pre class="text-black dark:text-gray-400 text-xs"></pre>
+<div class="text-sm max-w-lg font-body">
+<div class="markdown text-justify">
+A project for gymnasium students to broaden our field of knowledge and to create relationships with other ambitious students. This was done through workshops and visiting different universities and companies.
+</div>
+</div>
+</div>
+<div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
+<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<time datetime=2011-08-01>2011</time> -
+<time datetime=2014-06-01>2014</time>
+</span>
+<span>
+<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Higher Technical Gymnasium</h3>
+<span class="italic inline text-gray-700 dark:text-gray-400">Hillerød, Denmark</span>
+</span>
+<pre class="text-black dark:text-gray-400 text-xs">Mathematics, Physics, and IT</pre>
+<div class="text-sm max-w-lg font-body">
+<div class="markdown text-justify">
+3-year programme to qualify for higher education in Denmark, with focus on scientific subjects.
+</div>
+</div>
+</div>
+</section>
 </main>
 <footer class="w-full p-4 bg-purple-800">
 </footer>
