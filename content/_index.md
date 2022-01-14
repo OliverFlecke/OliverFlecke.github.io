@@ -9,12 +9,13 @@ Passionate about technology and building software to solve problems.
 Curious as a person and I always eager for new challenges and opportunities to learn and grow from.
 I have always enjoyed working both independently and in teams with talented people from all over the world.
 
-### Programming languages
+## Software skills
 
 - C# (.NET 3+ / ASP NET / Xamarin)
 - Python
 - TypeScript/JavaScript
 - F#
+- Haskell
 - Swift
 - Java
 - C/C++

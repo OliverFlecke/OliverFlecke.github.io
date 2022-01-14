@@ -60,7 +60,7 @@ footer {
 	h4,
 	h5,
 	h6 {
-		@apply text-lime-700 dark:text-lime-600 pt-2;
+		@apply text-emerald-700 dark:text-emerald-600 pt-2;
 	}
 
 	& h2 {

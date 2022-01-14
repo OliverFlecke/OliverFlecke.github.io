@@ -1,14 +1,25 @@
 {{ define "main" }}
-<h1 class="my-4 text-2xl text-gray-900 dark:text-gray-300">{{ .Title }}</h1>
+<h1 class="mt-4 text-2xl text-emerald-800 dark:text-emerald-500">{{ .Title }}</h1>
 
 <section class="px-6 text-white dark:text-gray-300 markdown">
 	{{ .Content }}
 
 	<ol>
 		{{ range .Pages }}
-		<li class="my-4 p-4 border rounded bg-gray-200 dark:bg-gray-800">
-			<a href="{{.Permalink}}" class="text-amber-900">{{.Date.Format "2006-01-02"}} | {{.Title}}</a>
-			<p class="text-gray-900 dark:text-gray-300">{{ .Summary }}</p>
+		<li
+			class="my-4 p-4 border-2 border-emerald-800 dark:border-emerald-500 rounded bg-gray-200 dark:bg-gray-800"
+		>
+			<a href="{{.Permalink}}">
+				<span class="text-emerald-800 dark:text-emerald-500 text-xl"
+					>{{.Date.Format "2006-01-02"}} | {{.Title}}</span
+				>
+			</a>
+
+			<div class="text-xs pb-2 italic text-gray-600 dark:text-gray-400">
+				Reading time: {{ math.Round (div (countwords .Content) 220.0) }} minutes
+			</div>
+
+			<p class="pt-4 text-gray-900 dark:text-gray-300">{{ .Summary }}</p>
 		</li>
 		{{ end }}
 	</ol>
