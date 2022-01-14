@@ -1,0 +1,209 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Sudoku solver in Prolog | OliverFlecke</title>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=author content="Oliver Fleckenstein">
+<meta name=description content="Blog, notes and everything else for Oliver Fleckenstein">
+<meta name=keywords content="development,notes">
+<link href=/css/main.css rel=stylesheet>
+<meta name=robots content="follow">
+<meta name=color-scheme content="dark light">
+<meta name=theme-color media="(prefers-color-scheme: light)" content="#312e81">
+<meta name=theme-color media="(prefers-color-scheme: dark)" content="#312e81">
+<script async defer data-api=https://plausible.oliverflecke.me/api/event data-domain=oliverflecke.me src=https://plausible.oliverflecke.me/js/script.js></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
+<header class="pt-6 bg-indigo-900 flex justify-center">
+<div class="w-full max-w-2xl">
+<nav class="flex items-center justify-between flex-wrap pb-4 px-4">
+<div class="block lg:hidden">
+<button onclick="document.getElementById('nav-items')?.classList.toggle('hidden')" class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"><svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+</button>
+</div>
+<div class="flex items-center flex-shrink-0 text-white">
+<a href=/ class=pr-4>Oliver Fleckenstein</a>
+<div class="flex space-x-3">
+<a href=https://github.com/oliverflecke>
+<img src=/icons/github.svg alt="GitHub logo with link to OliverFlecke's profile" width=2rem height=2rem class=w-8>
+</a>
+<a href=https://linkedin.com/in/oliverflecke/>
+<img src=/icons/linkedin.svg alt="LinkedIn logo with link to OliverFlecke's profile" width=2rem height=2rem class=w-8>
+</a>
+</div>
+</div>
+<ul id=nav-items class="w-full hidden flex-grow pt-4 lg:pt-0 lg:w-auto lg:flex lg:justify-end lg:space-x-8 uppercase text-xl text-gray-100">
+<li><a class=nav-link href=/>Home</a></li>
+<li><a class=nav-link href=/#experience>Experience</a></li>
+<li><a class=nav-link href=/project>Projects</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="flex-grow h-full w-screen pb-4 flex flex-col items-center">
+<section class="text-gray-900 dark:text-gray-300">
+<h2 class="text-2xl pt-4 text-emerald-700 dark:text-emerald-600">
+<a href=https://oliverflecke.me/project/prolog_sudoku_solver/>Sudoku solver in Prolog</a>
+</h2>
+<div class=space-x-4>
+<time class="text-sm text-indigo-700 dark:text-emerald-500">2020-10-31</time>
+<span class="text-sm italic text-gray-600 dark:text-gray-400">Reading time: 6 minutes</span>
+</div>
+<div class=markdown><h2 id=primer>Primer</h2>
+<p>A few days ago, I was doing a <a href=https://en.wikipedia.org/wiki/Sudoku>Sudoku</a>, a puzzle game similar to cross word puzzles, but where the goal is to fill out every cell with a number.
+Each number has to fulfill the following rules:</p>
+<ul>
+<li>Each <em>row</em> of numbers must be distinct</li>
+<li>Each <em>column</em> of numbers must be distinct</li>
+<li>Each <em>3x3 square</em> of numbers must be distinct</li>
+</ul>
+<p>Quite simple, but it can still provide some interesting and challenging problems.</p>
+<p>While I was completing a puzzle, I was wondering about the different techniques to solve them, and how these could be abstracted into a sudoku solving program.
+I remember reading some articles on this problem back in university, when some of my class mates where trying to write a sudoku solver during a semester course.
+They suggested <a href=https://en.wikipedia.org/wiki/Brute-force_search>brute-force</a> algorithms to generate every possible solution until a valid one is found (e.g. using <a href=https://en.wikipedia.org/wiki/Backtracking>backtracking</a>).
+However, these solutions do not really scale well with the problem, and it is quite ease to create sudoku problems that they fail to solve (at least before I hit ctrl+c).</p>
+<p>Another solution is to use <a href=https://en.wikipedia.org/wiki/Knuth%27s_Algorithm_X>Knuth&rsquo;s Algorithm X</a> to model the problem as an <em>exact cover</em> problem.
+This promise to be able to solve must Sudokus rather quickly, and I thought, this must be the road to follow.</p>
+<h2 id=tldr>TL;DR</h2>
+<p>Just want to see the code? You can find it <a href=https://github.com/OliverFlecke/algorithms-prolog/blob/master/src/sudoku.pl>here on GitHub</a>.</p>
+<h2 id=enter-prolog>Enter Prolog</h2>
+<p>I got another idea for a solution: <a href=https://en.wikipedia.org/wiki/Prolog>Prolog</a>.
+Prolog is a programming language like no other, defined as a <em>logic programming</em> language, which is fantastic at solve some set of problems, like constraint problems (sudoku).
+It had been a while since I had used this language, but I dusted off the old Prolog shelf, booted up my terminal, and did a quick <code>brew install swi-prolog</code> and was up and running.</p>
+<h2 id=implementation>Implementation</h2>
+<p>First lets look at how we can model a sudoku problem in Prolog.
+Here is a sample.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog>[
+	[<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>2</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>6</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>8</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>],
+	[<span style=color:#bd93f9>5</span>,<span style=color:#bd93f9>8</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>9</span>,<span style=color:#bd93f9>7</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>],
+	[<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>4</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>],
+	[<span style=color:#bd93f9>3</span>,<span style=color:#bd93f9>7</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>5</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>],
+	[<span style=color:#bd93f9>6</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>4</span>],
+	[<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>8</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>1</span>,<span style=color:#bd93f9>3</span>],
+	[<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>2</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>],
+	[<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>9</span>,<span style=color:#bd93f9>8</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>3</span>,<span style=color:#bd93f9>6</span>],
+	[<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>3</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>6</span>,<span style=color:#ff79c6>_</span>,<span style=color:#bd93f9>9</span>,<span style=color:#ff79c6>_</span>]
+].
+</code></pre></div><p>Notice that this is a valid Prolog term; it is a list of lists (rows).
+All the given numbers are filled in, while the rest are given the <code>_</code>, indicating a value we do not care about.
+Another benefit of this format, is that it can be stored in a file and read directly into a variable in Prolog.</p>
+<p>So how do we solve a sudoku in Prolog?
+Which algorithm are we using?
+Instead of implementing any of the algorithms mentioned above, Prolog <strong>is</strong> the algorithm, we just have to list the rules.
+So what are the rules?</p>
+<p>First, lets make sure we are actually getting a valid sudoku board as an input.
+We know that there should only be 9 rows and 9 columns.
+This can be checked by:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog><span style=color:#50fa7b>sudoku</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>) :-
+	<span style=color:#50fa7b>length</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>, <span style=color:#bd93f9>9</span>),
+	<span style=color:#50fa7b>maplist</span>(<span style=color:#50fa7b>same_length</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>), <span style=color:#8be9fd;font-style:italic>Rows</span>).
+</code></pre></div><p>This looks fairly simple, even if you are new to Prolog.
+The first line, we define the name of our rule <code>sudoku</code>, which takes one argument, a list of rows.
+The second line checks that there are exactly nine rows; the third that ever row has the same length as the number of rows (i.e. nine).
+<code>maplist</code> will apply <code>same_length</code> for every element in the <code>Rows</code> list.
+This means that</p>
+<ul>
+<li><code>sudoku([])</code></li>
+<li><code>sudoku([[],[],[],[],[],[],[],[],[],[]])</code></li>
+</ul>
+<p>and all other invalid configurations will return false.</p>
+<p>Next, lets make sure every number is in the valid range from 1 to 9, including.
+This can be done with</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog><span style=color:#50fa7b>append</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>, <span style=color:#8be9fd;font-style:italic>Ns</span>), <span style=color:#8be9fd;font-style:italic>Ns</span> <span style=color:#f1fa8c>ins</span> <span style=color:#bd93f9>1..9</span>
+</code></pre></div><p><code>append/2</code> takes a list of lists, and append all of the lists into one big list (a flatmap for all of you functional programmers).
+The <code>ins</code> rule insures that every number is between 1 and 9, both including.</p>
+<p>Now we need to check that the rows, columns and squares are all distinct.
+Starting with the rows, we again apply <code>maplist</code> to map a rule over every row.
+Prolog has a build in rule <code>all_distinct/1</code> that takes a list and validates that all elements are distinct.
+So, to check the rows</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog><span style=color:#50fa7b>maplist</span>(<span style=color:#f1fa8c>all_distinct</span>, <span style=color:#8be9fd;font-style:italic>Rows</span>)
+</code></pre></div><p>For the columns, we want to do the exact same thing, only our input does not really match this.
+Luckily, we can use another build in rule <code>transpose/2</code> which will convert our list of rows to a list of columns.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog><span style=color:#50fa7b>transpose</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>, <span style=color:#8be9fd;font-style:italic>Cols</span>), <span style=color:#50fa7b>maplist</span>(<span style=color:#f1fa8c>all_distinct</span>, <span style=color:#8be9fd;font-style:italic>Cols</span>)
+</code></pre></div><p>Now all numbers in the rows and all columns must be distinct.</p>
+<p>The last part to tackle is the squares.
+There are nine in total.
+We could take every single number out of the rows list and write rules to match them manually.
+For the first square, this could look like this:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog><span style=color:#8be9fd;font-style:italic>Rows</span> <span style=color:#ff79c6>=</span> [<span style=color:#8be9fd;font-style:italic>R1</span>, <span style=color:#8be9fd;font-style:italic>R2</span>, <span style=color:#8be9fd;font-style:italic>R3</span> | <span style=color:#ff79c6>_</span>],
+<span style=color:#8be9fd;font-style:italic>R1</span> <span style=color:#ff79c6>=</span> [<span style=color:#8be9fd;font-style:italic>N11</span>, <span style=color:#8be9fd;font-style:italic>N12</span>, <span style=color:#8be9fd;font-style:italic>N13</span> | <span style=color:#ff79c6>_</span>],
+<span style=color:#8be9fd;font-style:italic>R2</span> <span style=color:#ff79c6>=</span> [<span style=color:#8be9fd;font-style:italic>N21</span>, <span style=color:#8be9fd;font-style:italic>N22</span>, <span style=color:#8be9fd;font-style:italic>N23</span> | <span style=color:#ff79c6>_</span>],
+<span style=color:#8be9fd;font-style:italic>R3</span> <span style=color:#ff79c6>=</span> [<span style=color:#8be9fd;font-style:italic>N31</span>, <span style=color:#8be9fd;font-style:italic>N32</span>, <span style=color:#8be9fd;font-style:italic>N33</span> | <span style=color:#ff79c6>_</span>],
+<span style=color:#50fa7b>all_distinct</span>([<span style=color:#8be9fd;font-style:italic>N11</span>, <span style=color:#8be9fd;font-style:italic>N12</span>, <span style=color:#8be9fd;font-style:italic>N13</span>, <span style=color:#8be9fd;font-style:italic>N21</span>, <span style=color:#8be9fd;font-style:italic>N22</span>, <span style=color:#8be9fd;font-style:italic>N23</span>, <span style=color:#8be9fd;font-style:italic>N31</span>, <span style=color:#8be9fd;font-style:italic>N32</span>, <span style=color:#8be9fd;font-style:italic>N33</span>]).
+</code></pre></div><p>We could continue this and extract all numbers from all rows, and create 9 lines of <code>all_distinct</code>.
+However, it would be easy to messup which numbers goes where.</p>
+<p>Instead, notice that we just remove the first three numbers from each row, creating three tails with six numbers left.
+We can use recursion on these to solve the three squares spanning row one to three.
+Lets make a new rule, <code>distinct_square</code>, which takes three list of numbers as input.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog><span style=color:#50fa7b>distinct_square</span>([], [], []).
+<span style=color:#50fa7b>distinct_square</span>(
+	[<span style=color:#8be9fd;font-style:italic>N11</span>, <span style=color:#8be9fd;font-style:italic>N12</span>, <span style=color:#8be9fd;font-style:italic>N13</span> | <span style=color:#8be9fd;font-style:italic>Tail1</span>],
+	[<span style=color:#8be9fd;font-style:italic>N21</span>, <span style=color:#8be9fd;font-style:italic>N22</span>, <span style=color:#8be9fd;font-style:italic>N23</span> | <span style=color:#8be9fd;font-style:italic>Tail2</span>],
+	[<span style=color:#8be9fd;font-style:italic>N31</span>, <span style=color:#8be9fd;font-style:italic>N32</span>, <span style=color:#8be9fd;font-style:italic>N33</span> | <span style=color:#8be9fd;font-style:italic>Tail3</span>]) :-
+	<span style=color:#50fa7b>all_distinct</span>([
+		<span style=color:#8be9fd;font-style:italic>N11</span>, <span style=color:#8be9fd;font-style:italic>N12</span>, <span style=color:#8be9fd;font-style:italic>N13</span>,
+		<span style=color:#8be9fd;font-style:italic>N21</span>, <span style=color:#8be9fd;font-style:italic>N22</span>, <span style=color:#8be9fd;font-style:italic>N23</span>,
+		<span style=color:#8be9fd;font-style:italic>N31</span>, <span style=color:#8be9fd;font-style:italic>N32</span>, <span style=color:#8be9fd;font-style:italic>N33</span>]),
+	<span style=color:#50fa7b>distinct_square</span>(<span style=color:#8be9fd;font-style:italic>Tail1</span>, <span style=color:#8be9fd;font-style:italic>Tail2</span>, <span style=color:#8be9fd;font-style:italic>Tail3</span>).
+</code></pre></div><p>It is true if all lists are empty.
+Otherwise, if the three first numbers of each list (each row) is all distinct, and all the tails also only contain distinct squares, it is also valid.</p>
+<p>Lastly, we need to do this for all nine rows, not just the first three.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog><span style=color:#50fa7b>distinct_squares</span>([]).
+<span style=color:#50fa7b>distinct_squares</span>([<span style=color:#8be9fd;font-style:italic>R1</span>, <span style=color:#8be9fd;font-style:italic>R2</span>, <span style=color:#8be9fd;font-style:italic>R3</span> | <span style=color:#8be9fd;font-style:italic>Rows</span>]) :-
+	<span style=color:#50fa7b>distinct_square</span>(<span style=color:#8be9fd;font-style:italic>R1</span>, <span style=color:#8be9fd;font-style:italic>R2</span>, <span style=color:#8be9fd;font-style:italic>R3</span>),
+	<span style=color:#50fa7b>distinct_squares</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>).
+</code></pre></div><p><code>distinct_squares</code> takes a list of rows.
+It is valid for a empty list of rows, or if the first three rows are valid squares and the remain rows are valid.</p>
+<h2 id=solution>Solution</h2>
+<p>Here are the full solution.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog><span style=color:#50fa7b>sudoku</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>) :-
+	<span style=color:#50fa7b>length</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>, <span style=color:#bd93f9>9</span>),
+	<span style=color:#50fa7b>maplist</span>(<span style=color:#50fa7b>same_length</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>), <span style=color:#8be9fd;font-style:italic>Rows</span>),
+	<span style=color:#50fa7b>append</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>, <span style=color:#8be9fd;font-style:italic>Ns</span>),
+	<span style=color:#8be9fd;font-style:italic>Ns</span> <span style=color:#f1fa8c>ins</span> <span style=color:#bd93f9>1..9</span>,
+	<span style=color:#50fa7b>maplist</span>(<span style=color:#f1fa8c>all_distinct</span>, <span style=color:#8be9fd;font-style:italic>Rows</span>),
+	<span style=color:#50fa7b>transpose</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>, <span style=color:#8be9fd;font-style:italic>Cols</span>),
+	<span style=color:#50fa7b>maplist</span>(<span style=color:#f1fa8c>all_distinct</span>, <span style=color:#8be9fd;font-style:italic>Cols</span>),
+	<span style=color:#50fa7b>distinct_squares</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>).
+
+<span style=color:#50fa7b>distinct_squares</span>([]).
+<span style=color:#50fa7b>distinct_squares</span>([<span style=color:#8be9fd;font-style:italic>R1</span>, <span style=color:#8be9fd;font-style:italic>R2</span>, <span style=color:#8be9fd;font-style:italic>R3</span> | <span style=color:#8be9fd;font-style:italic>Rows</span>]) :-
+	<span style=color:#50fa7b>distinct_square</span>(<span style=color:#8be9fd;font-style:italic>R1</span>, <span style=color:#8be9fd;font-style:italic>R2</span>, <span style=color:#8be9fd;font-style:italic>R3</span>),
+	<span style=color:#50fa7b>distinct_squares</span>(<span style=color:#8be9fd;font-style:italic>Rows</span>).
+
+<span style=color:#50fa7b>distinct_square</span>([], [], []).
+<span style=color:#50fa7b>distinct_square</span>(
+	[<span style=color:#8be9fd;font-style:italic>N11</span>, <span style=color:#8be9fd;font-style:italic>N12</span>, <span style=color:#8be9fd;font-style:italic>N13</span> | <span style=color:#8be9fd;font-style:italic>Tail1</span>],
+	[<span style=color:#8be9fd;font-style:italic>N21</span>, <span style=color:#8be9fd;font-style:italic>N22</span>, <span style=color:#8be9fd;font-style:italic>N23</span> | <span style=color:#8be9fd;font-style:italic>Tail2</span>],
+	[<span style=color:#8be9fd;font-style:italic>N31</span>, <span style=color:#8be9fd;font-style:italic>N32</span>, <span style=color:#8be9fd;font-style:italic>N33</span> | <span style=color:#8be9fd;font-style:italic>Tail3</span>]) :-
+	<span style=color:#50fa7b>all_distinct</span>([
+		<span style=color:#8be9fd;font-style:italic>N11</span>, <span style=color:#8be9fd;font-style:italic>N12</span>, <span style=color:#8be9fd;font-style:italic>N13</span>,
+		<span style=color:#8be9fd;font-style:italic>N21</span>, <span style=color:#8be9fd;font-style:italic>N22</span>, <span style=color:#8be9fd;font-style:italic>N23</span>,
+		<span style=color:#8be9fd;font-style:italic>N31</span>, <span style=color:#8be9fd;font-style:italic>N32</span>, <span style=color:#8be9fd;font-style:italic>N33</span>]),
+	<span style=color:#50fa7b>distinct_square</span>(<span style=color:#8be9fd;font-style:italic>Tail1</span>, <span style=color:#8be9fd;font-style:italic>Tail2</span>, <span style=color:#8be9fd;font-style:italic>Tail3</span>).
+</code></pre></div><p>Even though the last part are a bit complex, it is still incredible how simple a program you can write in Prolog for solving such a complex problem.</p>
+<p>Lets load the file into Prolog and try it out.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-sh data-lang=sh>swipl sudoku.pl
+</code></pre></div><p>In <a href=https://github.com/OliverFlecke/algorithms-prolog/blob/master/src/sudoku.pl>my solution file</a> I have added a two helper methods, <code>read_problem</code> and <code>pretty</code>, which helps with reading a problem from a file and pretty print the solution to the terminal.
+This can be used as</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog><span style=color:#50fa7b>read_problem</span>(<span style=color:#f1fa8c>&#39;samples/sudoku/2.txt&#39;</span>, <span style=color:#8be9fd;font-style:italic>P</span>), <span style=color:#50fa7b>sudoku</span>(<span style=color:#8be9fd;font-style:italic>P</span>), <span style=color:#50fa7b>pretty</span>(<span style=color:#8be9fd;font-style:italic>P</span>).
+</code></pre></div><p>Read the problem into <code>P</code>, solve <code>P</code>, and print <code>P</code>.
+The output:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:2;-o-tab-size:2;tab-size:2><code class=language-prolog data-lang=prolog>[<span style=color:#bd93f9>1</span>, <span style=color:#bd93f9>5</span>, <span style=color:#bd93f9>2</span>, <span style=color:#bd93f9>4</span>, <span style=color:#bd93f9>8</span>, <span style=color:#bd93f9>9</span>, <span style=color:#bd93f9>3</span>, <span style=color:#bd93f9>7</span>, <span style=color:#bd93f9>6</span>].
+[<span style=color:#bd93f9>7</span>, <span style=color:#bd93f9>3</span>, <span style=color:#bd93f9>9</span>, <span style=color:#bd93f9>2</span>, <span style=color:#bd93f9>5</span>, <span style=color:#bd93f9>6</span>, <span style=color:#bd93f9>8</span>, <span style=color:#bd93f9>4</span>, <span style=color:#bd93f9>1</span>].
+[<span style=color:#bd93f9>4</span>, <span style=color:#bd93f9>6</span>, <span style=color:#bd93f9>8</span>, <span style=color:#bd93f9>3</span>, <span style=color:#bd93f9>7</span>, <span style=color:#bd93f9>1</span>, <span style=color:#bd93f9>2</span>, <span style=color:#bd93f9>9</span>, <span style=color:#bd93f9>5</span>].
+[<span style=color:#bd93f9>3</span>, <span style=color:#bd93f9>8</span>, <span style=color:#bd93f9>7</span>, <span style=color:#bd93f9>1</span>, <span style=color:#bd93f9>2</span>, <span style=color:#bd93f9>4</span>, <span style=color:#bd93f9>6</span>, <span style=color:#bd93f9>5</span>, <span style=color:#bd93f9>9</span>].
+[<span style=color:#bd93f9>5</span>, <span style=color:#bd93f9>9</span>, <span style=color:#bd93f9>1</span>, <span style=color:#bd93f9>7</span>, <span style=color:#bd93f9>6</span>, <span style=color:#bd93f9>3</span>, <span style=color:#bd93f9>4</span>, <span style=color:#bd93f9>2</span>, <span style=color:#bd93f9>8</span>].
+[<span style=color:#bd93f9>2</span>, <span style=color:#bd93f9>4</span>, <span style=color:#bd93f9>6</span>, <span style=color:#bd93f9>8</span>, <span style=color:#bd93f9>9</span>, <span style=color:#bd93f9>5</span>, <span style=color:#bd93f9>7</span>, <span style=color:#bd93f9>1</span>, <span style=color:#bd93f9>3</span>].
+[<span style=color:#bd93f9>9</span>, <span style=color:#bd93f9>1</span>, <span style=color:#bd93f9>4</span>, <span style=color:#bd93f9>6</span>, <span style=color:#bd93f9>3</span>, <span style=color:#bd93f9>7</span>, <span style=color:#bd93f9>5</span>, <span style=color:#bd93f9>8</span>, <span style=color:#bd93f9>2</span>].
+[<span style=color:#bd93f9>6</span>, <span style=color:#bd93f9>2</span>, <span style=color:#bd93f9>5</span>, <span style=color:#bd93f9>9</span>, <span style=color:#bd93f9>4</span>, <span style=color:#bd93f9>8</span>, <span style=color:#bd93f9>1</span>, <span style=color:#bd93f9>3</span>, <span style=color:#bd93f9>7</span>].
+[<span style=color:#bd93f9>8</span>, <span style=color:#bd93f9>7</span>, <span style=color:#bd93f9>3</span>, <span style=color:#bd93f9>5</span>, <span style=color:#bd93f9>1</span>, <span style=color:#bd93f9>2</span>, <span style=color:#bd93f9>9</span>, <span style=color:#bd93f9>6</span>, <span style=color:#bd93f9>4</span>].
+</code></pre></div><p>I have tested this solution on sudoku problems with increasingly difficulty, and so far it has been spitting out a problem before I could blink.
+Once again, I am quite amazed on what you can get out of Prolog.</p>
+</div>
+</section>
+</main>
+<footer class="w-full p-4 bg-indigo-800">
+</footer>
+</body>
+</html>
