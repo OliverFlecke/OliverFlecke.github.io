@@ -4,12 +4,12 @@
 	{{ .Content }}
 </section>
 
-<section class="px-6">
+<section class="px-6 max-w-prose">
 	<h2 id="experience" class="text-xl font-bold pt-2 text-emerald-700 dark:text-emerald-600">Experience</h2>
 	{{ range sort $.Site.Data.experience "Start" "desc" }} {{ partial "experience.html" . }} {{ end }}
 </section>
 
-<section class="px-6">
+<section class="px-6 max-w-prose">
 	<h2 id="education" class="text-xl font-bold pt-2 text-emerald-700 dark:text-emerald-600">Education</h2>
 	{{ range sort $.Site.Data.education "End" "desc" }}
 	{{ partial "education.html" . }}

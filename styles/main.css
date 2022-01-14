@@ -83,3 +83,12 @@ footer {
 		@apply rounded;
 	}
 }
+
+ol.skill-list {
+	@apply flex flex-row flex-wrap;
+
+	& li {
+		@apply px-4 m-2 rounded-lg text-sm first:ml-0;
+		@apply text-white bg-indigo-700;
+	}
+}
