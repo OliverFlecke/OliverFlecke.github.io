@@ -10,12 +10,12 @@
 <link href=/css/main.css rel=stylesheet>
 <meta name=robots content="follow">
 <meta name=color-scheme content="dark light">
-<meta name=theme-color media="(prefers-color-scheme: light)" content="#581c87">
-<meta name=theme-color media="(prefers-color-scheme: dark)" content="#581c87">
+<meta name=theme-color media="(prefers-color-scheme: light)" content="#312e81">
+<meta name=theme-color media="(prefers-color-scheme: dark)" content="#312e81">
 <script async defer data-api=https://plausible.oliverflecke.me/api/event data-domain=oliverflecke.me src=https://plausible.oliverflecke.me/js/script.js></script>
 </head>
-<body class="bg-coolGray-100 dark:bg-gray-900 min-h-screen flex flex-col">
-<header class="pt-6 bg-purple-900 flex justify-center">
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
+<header class="pt-6 bg-indigo-900 flex justify-center">
 <div class="w-full max-w-2xl">
 <nav class="flex items-center justify-between flex-wrap pb-4">
 <div class="block lg:hidden">
@@ -36,7 +36,7 @@
 <ul id=nav-items class="w-full hidden flex-grow pt-4 lg:pt-0 lg:w-auto lg:flex lg:justify-end lg:space-x-8 uppercase text-xl text-gray-100">
 <li><a class=nav-link href=/>Home</a></li>
 <li><a class=nav-link href=/#experience>Experience</a></li>
-<li><a class=nav-link href=/post>Posts</a></li>
+<li><a class=nav-link href=/project>Projects</a></li>
 </ul>
 </nav>
 </div>
@@ -47,45 +47,62 @@
 Passionate about technology and building software to solve problems.
 Curious as a person and I always eager for new challenges and opportunities to learn and grow from.
 I have always enjoyed working both independently and in teams with talented people from all over the world.</p>
-<h3 id=programming-languages>Programming languages</h3>
-<ul>
-<li>C# (.NET 3+ / ASP NET / Xamarin)</li>
+<h3 id=software-skills>Software skills</h3>
+<p>I have strong fundamentals in and experience working with both object-oriented and functional languages.
+I enjoy working with both backend and frontend development, and have build several REST APIs in ASP .NET and NodeJS, using OAuth 2 for authentication and OpenApi.
+For mobile development, I have created cross-platform apps in Xamarin (and now learning MAUI), along with iOS apps in Swift.</p>
+<h4 id=programming-languages>Programming languages</h4>
+<ol class=skill-list>
+<li>C#</li>
 <li>Python</li>
-<li>TypeScript/JavaScript</li>
+<li>JavaScript</li>
+<li>TypeScript</li>
 <li>F#</li>
+<li>Haskell</li>
 <li>Swift</li>
 <li>Java</li>
 <li>C/C++</li>
-</ul>
+</ol>
 <p>I have dappled around with several other languages, and always find it interesting to see how different tools try to solve problems.</p>
-<h3 id=web-technologies>Web technologies</h3>
-<p>React, NodeJS, HTML/CSS, SASS, PHP</p>
-<h3 id=embedded>Embedded</h3>
-<p>Experience with Nordic Semiconductor, Raspberry Pi and Arduino.
-Developed certified BLE HomeKit devices.</p>
+<h4 id=web-technologies>Web technologies</h4>
+<ol class=skill-list>
+<li>React</li>
+<li>NodeJS</li>
+<li>HTML</li>
+<li>CSS</li>
+<li>SASS</li>
+<li>PHP</li>
+</ol>
 <h3 id=other-skills>Other skills</h3>
-<ul>
+<p>Strong knowledge of data structures and algorithms, and always looking for ways to write better and cleaner code, following practices such as SOLID and TDD.
+I believe in strong agile development frameworks, with rapid iterations and feedback loops.
+To assist with this during development, I always aim to have efficient Continuos-Integration and Continues-Deployment flows to ease testing and validation of code, along with often releases.</p>
+<ol class=skill-list>
 <li>Git</li>
 <li>SQL (PostgreSQL, SQLite)</li>
+<li>NoSQL (MongoDB)</li>
 <li>Docker</li>
 <li>GitHub</li>
 <li>Azure DevOps</li>
 <li>Azure Cloud</li>
-</ul>
+</ol>
+<h3 id=embedded>Embedded</h3>
+<p>Experience with Nordic Semiconductor, Raspberry Pi and Arduino.
+During my time at Friday Home, I developed certified IoT BLE HomeKit devices.</p>
 </section>
-<section class=px-6>
-<h2 id=experience class="text-xl font-bold pt-2 text-lime-700 dark:text-lime-600">Experience</h2>
+<section class="px-6 max-w-prose">
+<h2 id=experience class="text-xl font-bold pt-2 text-emerald-700 dark:text-emerald-600">Experience</h2>
 <div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
-<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<span class="text-emerald-700 dark:text-emerald-600 block sm:inline sm:row-span-3 sm:pr-4">
 <time datetime=2019-08-01>2019</time> -
 <time datetime=2021-09-30>2021</time>
 </span>
 <span>
-<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Friday Home</h3>
+<h3 class="font-semibold text-indigo-700 dark:text-indigo-400 inline pr-1">Friday Home</h3>
 <span class="italic inline text-gray-700 dark:text-gray-400">Copenhagen, Denmark</span>
 </span>
 <pre class="text-black dark:text-gray-400 text-xs">Software Engineer</pre>
-<div class="text-sm max-w-lg font-body">
+<div class="text-sm max-w-lg font-body pt-2 pb-4">
 <div class="markdown text-justify">
 At Friday Home, I was part of a small development team responsible for the design, production and software development of a BLE and WiFi, HomeKit certified, smart lock.
 My responsibilities included; developing mobile apps for Android and iOS using Xamarin Forms, building backend API (.NET 3/5), frontend (HTML/CSS, React & TypeScript), and website (Umbraco), and implementing Bluetooth communication in app and firmware.
@@ -118,51 +135,51 @@ We build a infrastructure where we automatically gathered test results, images, 
 </div>
 </div>
 <div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
-<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<span class="text-emerald-700 dark:text-emerald-600 block sm:inline sm:row-span-3 sm:pr-4">
 <time datetime=2017-06-01>2017</time> -
 <time datetime=2019-05-31>2019</time>
 </span>
 <span>
-<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Microsoft</h3>
+<h3 class="font-semibold text-indigo-700 dark:text-indigo-400 inline pr-1">Microsoft</h3>
 <span class="italic inline text-gray-700 dark:text-gray-400">Kongens Lyngby, Denmark</span>
 </span>
 <pre class="text-black dark:text-gray-400 text-xs">Student Developer</pre>
-<div class="text-sm max-w-lg font-body">
+<div class="text-sm max-w-lg font-body pt-2 pb-4">
 <div class="markdown text-justify">
 Worked on Business Central (Navision), as a part of the Microsoft Invoicing team. My position was focused on UX, primarily using TypeScript and React.
 </div>
 </div>
 </div>
 <div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
-<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<span class="text-emerald-700 dark:text-emerald-600 block sm:inline sm:row-span-3 sm:pr-4">
 <time datetime=2015-04-01>2015</time> -
 <time datetime=2016-05-31>2016</time>
 </span>
 <span>
-<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">IBM</h3>
+<h3 class="font-semibold text-indigo-700 dark:text-indigo-400 inline pr-1">IBM</h3>
 <span class="italic inline text-gray-700 dark:text-gray-400">Brøndby, Denmark</span>
 </span>
 <pre class="text-black dark:text-gray-400 text-xs">Student project assistant</pre>
-<div class="text-sm max-w-lg font-body">
+<div class="text-sm max-w-lg font-body pt-2 pb-4">
 <div class="markdown text-justify">
 Worked to automate reporting of projects to clients from IBM’s project managing tool IBM Program Work Center (IPWC), which beforehand was done manually. This was done using VBA and HTML/CSS.
 </div>
 </div>
 </div>
 </section>
-<section class=px-6>
-<h2 id=education class="text-xl font-bold pt-2 text-lime-700 dark:text-lime-600">Education</h2>
+<section class="px-6 max-w-prose">
+<h2 id=education class="text-xl font-bold pt-2 text-emerald-700 dark:text-emerald-600">Education</h2>
 <div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
-<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<span class="text-emerald-700 dark:text-emerald-600 block sm:inline sm:row-span-3 sm:pr-4">
 <time datetime=2017-08-01>2017</time> -
 <time datetime=2019-08-01>2019</time>
 </span>
 <span>
-<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Technical University of Denmark</h3>
+<h3 class="font-semibold text-indigo-700 dark:text-indigo-400 inline pr-1">Technical University of Denmark</h3>
 <span class="italic inline text-gray-700 dark:text-gray-400">Copenhagen, Denmark</span>
 </span>
 <pre class="text-black dark:text-gray-400 text-xs">M.Sc. in Computer Science and Engineering</pre>
-<div class="text-sm max-w-lg font-body">
+<div class="text-sm max-w-lg font-body pt-2 pb-4">
 <div class="markdown text-justify">
 Specializing in algorithms and intelligent systems.
 Courses included advanced algorithms, machine learning, logic based AI.
@@ -171,16 +188,16 @@ My thesis was done in collaboration with <a href=https://www.mobile-industrial-r
 </div>
 </div>
 <div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
-<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<span class="text-emerald-700 dark:text-emerald-600 block sm:inline sm:row-span-3 sm:pr-4">
 <time datetime=2014-08-01>2014</time> -
 <time datetime=2017-06-30>2017</time>
 </span>
 <span>
-<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Technical University of Denmark</h3>
+<h3 class="font-semibold text-indigo-700 dark:text-indigo-400 inline pr-1">Technical University of Denmark</h3>
 <span class="italic inline text-gray-700 dark:text-gray-400">Copenhagen, Denmark</span>
 </span>
 <pre class="text-black dark:text-gray-400 text-xs">B.Sc. in Computer Science and Engineering</pre>
-<div class="text-sm max-w-lg font-body">
+<div class="text-sm max-w-lg font-body pt-2 pb-4">
 <div class="markdown text-justify">
 Courses included programming with Object-Oriented, Functional, and logical languages, hardware and memory constrainted programming using C++, introductory and advanced algorithms, and cryptography.
 My bachelor thesis was focused on Multi-Agent Systems, which included taking part in the <a href=https://multiagentcontest.org/>Multi-Agent Contest</a>, where our solution took second place.
@@ -188,48 +205,48 @@ My bachelor thesis was focused on Multi-Agent Systems, which included taking par
 </div>
 </div>
 <div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
-<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<span class="text-emerald-700 dark:text-emerald-600 block sm:inline sm:row-span-3 sm:pr-4">
 <time datetime=2016-06-01>2016</time> -
 <time datetime=2016-11-30>2016</time>
 </span>
 <span>
-<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">University of New South Wales</h3>
+<h3 class="font-semibold text-indigo-700 dark:text-indigo-400 inline pr-1">University of New South Wales</h3>
 <span class="italic inline text-gray-700 dark:text-gray-400">Sydney, Australia</span>
 </span>
 <pre class="text-black dark:text-gray-400 text-xs">B.Sc. Study exchange</pre>
-<div class="text-sm max-w-lg font-body">
+<div class="text-sm max-w-lg font-body pt-2 pb-4">
 <div class="markdown text-justify">
 As part of my bachelor Degree at DTU, I had an exchange semester abroad at UNSW in Sydney, Australia, with focus on compilers, Computer Vision and Graphics.
 </div>
 </div>
 </div>
 <div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
-<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<span class="text-emerald-700 dark:text-emerald-600 block sm:inline sm:row-span-3 sm:pr-4">
 <time datetime=2012-01-01>2012</time> -
 <time datetime=2014-12-31>2014</time>
 </span>
 <span>
-<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Academy for Talented Youth</h3>
+<h3 class="font-semibold text-indigo-700 dark:text-indigo-400 inline pr-1">Academy for Talented Youth</h3>
 <span class="italic inline text-gray-700 dark:text-gray-400">Zealand, Denmark</span>
 </span>
 <pre class="text-black dark:text-gray-400 text-xs"></pre>
-<div class="text-sm max-w-lg font-body">
+<div class="text-sm max-w-lg font-body pt-2 pb-4">
 <div class="markdown text-justify">
 A project for gymnasium students to broaden our field of knowledge and to create relationships with other ambitious students. This was done through workshops and visiting different universities and companies.
 </div>
 </div>
 </div>
 <div class="py-2 sm:grid sm:grid-flow-col sm:auto-cols-max">
-<span class="text-lime-700 dark:text-lime-600 block sm:inline sm:row-span-3 sm:pr-4">
+<span class="text-emerald-700 dark:text-emerald-600 block sm:inline sm:row-span-3 sm:pr-4">
 <time datetime=2011-08-01>2011</time> -
 <time datetime=2014-06-01>2014</time>
 </span>
 <span>
-<h3 class="font-semibold text-purple-700 dark:text-purple-400 inline pr-1">Higher Technical Gymnasium</h3>
+<h3 class="font-semibold text-indigo-700 dark:text-indigo-400 inline pr-1">Higher Technical Gymnasium</h3>
 <span class="italic inline text-gray-700 dark:text-gray-400">Hillerød, Denmark</span>
 </span>
 <pre class="text-black dark:text-gray-400 text-xs">Mathematics, Physics, and IT</pre>
-<div class="text-sm max-w-lg font-body">
+<div class="text-sm max-w-lg font-body pt-2 pb-4">
 <div class="markdown text-justify">
 3-year programme to qualify for higher education in Denmark, with focus on scientific subjects.
 </div>
@@ -237,7 +254,7 @@ A project for gymnasium students to broaden our field of knowledge and to create
 </div>
 </section>
 </main>
-<footer class="w-full p-4 bg-purple-800">
+<footer class="w-full p-4 bg-indigo-800">
 </footer>
 </body>
 </html>
