@@ -4,8 +4,6 @@ date: 2021-08-11
 draft: false
 ---
 
-## Introduction
-
 For a recent project, I wanted a way to authenticate users, but without all the struggle of managing users and their data.
 This was for a frontend, single-page application (SPA) where everything could be served as static HTML/CSS/JS files.
 My solution was to allow users to sign in with their Github credentials using OAuth.
@@ -318,7 +316,6 @@ For this project, I have deployed the proxy server using [heroku](https://www.he
 At the time of writing, they allow you to create several lightweight application for you to test out.
 Simply sign up for an account, create an app, and go to the deploy tab for instructions to deploy the server directly from git.
 Otherwise have a look [here for a full article on how to deploy the code](https://devcenter.heroku.com/articles/git).
-
 
 ## Getting the user info
 

@@ -6,11 +6,11 @@
 
 		{{ range .Sections }}
 			{{ range first 1 .Pages }}
-				{{ partial "post" . }}
+				{{ partial "project" . }}
 				<hr class="my-2 max-w-prose" />
 			{{ end }}
 		{{ end }}
 	</div>
 
-	<a class="underline" href="/post">More posts</a>
+	<a class="underline" href="/project">More projects</a>
 {{ end }}

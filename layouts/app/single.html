@@ -1,19 +1,25 @@
 {{ define "main" }}
 
 <section class="py-6 space-y-4 flex flex-col justify-center items-center">
-  <a href="{{ .Params.appLink }}" class="w-24 p-2 inline-block rounded-lg bg-{{ .Params.iconColor }}-500 dark:bg-{{ .Params.iconColor }}-800">
-    <img src="/icons/apps/{{ .Params.Icon }}.svg" alt="App icon for Convertible Currency" width="2rem" height="2rem" class="w-20" />
-  </a>
+	<a href="{{ .Params.appLink }}" class="w-24 p-2 inline-block rounded-lg {{ .Params.iconColor }}">
+		<img
+			src="/icons/apps/{{ .Params.Icon }}.svg"
+			alt="App icon for Convertible Currency"
+			width="2rem"
+			height="2rem"
+			class="w-20"
+		/>
+	</a>
 
-  <h1 class="my-3 text-2xl md:text-4xl font-bold text-{{ .Params.iconColor }}-700 dark:text-{{ .Params.iconColor }}-600">{{ .Title }}</h1>
+	<h1 class="my-3 text-2xl md:text-4xl font-bold">{{ .Title }}</h1>
 </section>
 
 {{ .Content }}
 
 <div class="p-8 flex justify-center">
-  <a href="{{ .Params.appLink }}">
-    <img class="w-48" src="/icons/download_on_the_app_store_badge.svg" />
-  </a>
+	<a href="{{ .Params.appLink }}">
+		<img class="w-48" src="/icons/download_on_the_app_store_badge.svg" />
+	</a>
 </div>
 
 {{ end }}
