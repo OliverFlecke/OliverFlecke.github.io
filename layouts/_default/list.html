@@ -14,10 +14,11 @@
 					>{{.Date.Format "2006-01-02"}} | {{.Title}}</span
 				>
 			</a>
-
+			{{ if (lt 0 (math.Round (div (countwords .Content) 220.0))) }}
 			<div class="text-xs pb-2 italic text-gray-600 dark:text-gray-400">
 				Reading time: {{ math.Round (div (countwords .Content) 220.0) }} minutes
 			</div>
+			{{ end }}
 
 			<p class="pt-4 text-gray-900 dark:text-gray-300">{{ .Summary }}</p>
 		</li>

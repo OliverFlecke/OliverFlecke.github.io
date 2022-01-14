@@ -4,12 +4,13 @@
 	</h2>
 	<div class="space-x-4">
 		<time class="text-sm text-indigo-700 dark:text-emerald-500">{{.Date.Format "2006-01-02"}}</time>
+
+		{{ if (lt 0 (math.Round (div (countwords .Content) 220.0))) }}
 		<span class="text-sm italic text-gray-600 dark:text-gray-400"
 			>Reading time: {{ math.Round (div (countwords .Content) 220.0) }} minutes</span
 		>
+		{{ end }}
 	</div>
 
-	<div class="markdown">
-		{{ .Content }}
-	</div>
+	<div class="markdown">{{ .Content }}</div>
 </section>
