@@ -58,6 +58,7 @@ To assist with this during development, I always aim to have efficient Continuos
     <li>SQL (PostgreSQL, SQLite)</li>
     <li>NoSQL (MongoDB)</li>
     <li>Docker</li>
+    <li>Kubernetes</li>
     <li>GitHub</li>
     <li>Azure DevOps</li>
     <li>Azure Cloud</li>
