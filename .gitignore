@@ -1,6 +1,5 @@
 node_modules/
 manifest.json
 _public/
-public/
 .DS_Store
 .hugo_build.lock

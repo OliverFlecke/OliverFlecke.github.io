@@ -15,7 +15,9 @@ hugo -d _public --minify
 
 ## Publish the site
 
-Publish the site using `scripts/publish.sh`.
+The site will be automatically build and published when pushed to master using Github Actions.
+
+Otherwise it can be published from your local repository using `scripts/publish.sh`.
 
 ## Serve the website locally
 
