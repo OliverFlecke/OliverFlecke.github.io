@@ -17,7 +17,7 @@ body {
 	}
 
 	h2.section-header {
-		@apply pt-6 pb-2 text-4xl text-black dark:text-gray-400;
+		@apply pt-6 pb-2 text-4xl;
 	}
 }
 
