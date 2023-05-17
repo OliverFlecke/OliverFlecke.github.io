@@ -20,6 +20,7 @@ For mobile development, I have created cross-platform apps in Xamarin (and now l
 {{< rawhtml >}}
 <ol class="skill-list">
     <li>C#</li>
+    <li>Rust</li>
     <li>Python</li>
     <li>JavaScript</li>
     <li>TypeScript</li>
@@ -57,6 +58,7 @@ To assist with this during development, I always aim to have efficient Continuos
     <li>Git</li>
     <li>SQL (PostgreSQL, SQLite)</li>
     <li>NoSQL (MongoDB)</li>
+    <li>MQTT/Kafka</li>
     <li>Docker</li>
     <li>Kubernetes</li>
     <li>GitHub</li>
