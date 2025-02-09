@@ -1,1 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>iOS on OliverFlecke</title><link>https://oliverflecke.me/tags/ios/</link><description>Recent content in iOS on OliverFlecke</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 28 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://oliverflecke.me/tags/ios/index.xml" rel="self" type="application/rss+xml"/><item><title>Convertible Currency</title><link>https://oliverflecke.me/currency/</link><pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate><guid>https://oliverflecke.me/currency/</guid><description>A minimalistic currency conversion app, available on iPhone, iPad, Apple Watch and Mac! Features Convert between multiple currencies at the same time Support for 180+ different currencies, including popular crypto currencies Offline support allows you to perform conversions even when you are without internet Choose and sort which your currencies Sync your settings and currencies accross your devices Convert currencies directly from your Apple Watch Privacy This application does not access or store any kind of personal data.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IOS on OliverFlecke</title><link>https://oliverflecke.me/tags/ios/</link><description>Recent content in IOS on OliverFlecke</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 28 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://oliverflecke.me/tags/ios/index.xml" rel="self" type="application/rss+xml"/><item><title>Convertible Currency</title><link>https://oliverflecke.me/currency/</link><pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate><guid>https://oliverflecke.me/currency/</guid><description>&lt;div class="text-center px-6 pb-6">
+ A minimalistic currency conversion app, available on iPhone, iPad, Apple Watch and Mac!
+&lt;/div>
+
+&lt;section class="bg-rose-900 text-gray-200 rounded-md w-full pb-4 px-6">
+ &lt;h2 class="section-header !text-white">Features&lt;/h2>
+
+ &lt;ul class="list-inside list-disc space-y-2">
+ &lt;li>Convert between multiple currencies at the same time&lt;/li>
+ &lt;li>Support for 180+ different currencies, including popular crypto currencies&lt;/li>
+ &lt;li>Offline support allows you to perform conversions even when you are without internet&lt;/li>
+ &lt;li>Choose and sort which your currencies&lt;/li>
+ &lt;li>Sync your settings and currencies accross your devices&lt;/li>
+ &lt;li>Convert currencies directly from your Apple Watch&lt;/li>
+ &lt;/ul>
+&lt;/section>
+
+&lt;section id="privacy" class="px-6">
+ &lt;h2 class="section-header">Privacy&lt;/h2>
+
+ &lt;p>This application does not access or store any kind of personal data. All settings and data are stored either on
+ your device or on Apple's secure servers, and not accessible to us elsewhere.&lt;/p></description></item></channel></rss>
