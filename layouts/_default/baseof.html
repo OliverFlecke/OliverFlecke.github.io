@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>{{ .Title }} | {{ .Site.Title }}</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="author" content="Oliver Fleckenstein" />
-		<meta name="description" content="Blog, notes and everything else for Oliver Fleckenstein" />
-		<meta name="keywords" content="development, notes" />
-		<link href="/css/main.css" rel="stylesheet" />
 
-		<meta name="robots" content="follow" />
-		<meta name="color-scheme" content="dark light" />
-		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#312e81" />
-		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#312e81" />
+<head>
+	<meta charset="utf-8" />
+	<title>{{ .Title }} | {{ .Site.Title }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="author" content="Oliver Fleckenstein" />
+	<meta name="description" content="Blog, notes and everything else for Oliver Fleckenstein" />
+	<meta name="keywords" content="development, notes" />
+	<link href="/css/main.css" rel="stylesheet" />
 
-		<script
-			async
-			defer
-			data-api="https://plausible.oliverflecke.me/api/event"
-			data-domain="oliverflecke.me"
-			src="https://plausible.oliverflecke.me/js/script.js"
-		></script>
-	</head>
-	<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
-		{{ partial "header.html" }}
-		<main class="flex-grow h-full w-screen pb-4 flex flex-col items-center">
-				{{ block "main" . }} {{ end }} {{ block "footer" . }} {{ end }}
-		</main>
-		{{ partial "footer.html" }}
-	</body>
+	<meta name="robots" content="follow" />
+	<meta name="color-scheme" content="dark light" />
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#312e81" />
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#312e81" />
+
+	<script async defer data-api="https://plausible.oliverflecke.me/api/event" data-domain="oliverflecke.me"
+		src="https://plausible.oliverflecke.me/js/script.js"></script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
+	{{ partial "header.html" }}
+	<main class="flex-grow h-full w-screen pb-4 flex flex-col items-center">
+		{{ block "main" . }} {{ end }} {{ block "footer" . }} {{ end }}
+	</main>
+	{{ partial "footer.html" }}
+</body>
+
 </html>
