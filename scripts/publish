@@ -21,4 +21,4 @@ git add --all
 git commit -m "$1"
 git push
 
-git switch master
+git switch main
