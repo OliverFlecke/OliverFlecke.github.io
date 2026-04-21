@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>App on OliverFlecke</title>
+    <link>http://localhost:1313/tags/app/</link>
+    <description>Recent content in App on OliverFlecke</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Convertible Currency</title>
+      <link>http://localhost:1313/currency/</link>
+      <pubDate>Sun, 28 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/currency/</guid>
+      <description>&lt;div class=&#34;text-center px-6 pb-6&#34;&gt;&#xA;  A minimalistic currency conversion app, available on iPhone, iPad, Apple Watch and Mac!&#xA;&lt;/div&gt;&#xA;&#xA;&lt;section class=&#34;bg-rose-900 text-gray-200 rounded-md w-full pb-4 px-6&#34;&gt;&#xA;  &lt;h2 class=&#34;section-header !text-white&#34;&gt;Features&lt;/h2&gt;&#xA;&#xA;  &lt;ul class=&#34;list-inside list-disc space-y-2&#34;&gt;&#xA;    &lt;li&gt;Convert between multiple currencies at the same time&lt;/li&gt;&#xA;    &lt;li&gt;Support for 180+ different currencies, including popular crypto currencies&lt;/li&gt;&#xA;    &lt;li&gt;Offline support allows you to perform conversions even when you are without internet&lt;/li&gt;&#xA;    &lt;li&gt;Choose and sort which your currencies&lt;/li&gt;&#xA;    &lt;li&gt;Sync your settings and currencies accross your devices&lt;/li&gt;&#xA;    &lt;li&gt;Convert currencies directly from your Apple Watch&lt;/li&gt;&#xA;  &lt;/ul&gt;&#xA;&lt;/section&gt;&#xA;&#xA;&lt;section id=&#34;privacy&#34; class=&#34;px-6&#34;&gt;&#xA;  &lt;h2 class=&#34;section-header&#34;&gt;Privacy&lt;/h2&gt;&#xA;&#xA;  &lt;p&gt;This application does not access or store any kind of personal data. All settings and data are stored either on&#xA;    your device or on Apple&#39;s secure servers, and not accessible to us elsewhere.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on OliverFlecke</title>
+    <link>http://localhost:1313/project/</link>
+    <description>Recent content in Projects on OliverFlecke</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Jun 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting to know the towers of London</title>
+      <link>http://localhost:1313/project/london_towers/</link>
+      <pubDate>Fri, 24 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/london_towers/</guid>
+      <description>&lt;p&gt;I recently moved to London and was stunned by the cities skyline.&#xA;So I wanted to learn the names of some of these recognizable landmarks, so I took a photo of central London from the Canary Wharf area and build a webapp around it to display the name and some interesting information of each building, along with links to relevant sides about each.&#xA;The site can be found at &lt;a href=&#34;https://london.oliverflecke.me&#34;&gt;london.oliverflecke.me&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/media/london-towers-screenshot.png&#34; alt=&#34;Screenshot of the London Towers application, showing the skyline of central London&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Convertible Currency app for iOS and more</title>
+      <link>http://localhost:1313/project/currency/</link>
+      <pubDate>Mon, 01 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/currency/</guid>
+      <description>&lt;p&gt;Convertible currency is a simple app for all of Apple&amp;rsquo;s devices, from iOS, WatchOS, iPad, and MacOS, which allows you to convert between many currencies.&lt;/p&gt;&#xA;&lt;p&gt;It allows you to select and sort your favorite currencies, which is synced between all of your devices.&lt;/p&gt;&#xA;&#xA;&lt;meta http-equiv=&#34;Refresh&#34; content=&#34;0; url=&#39;http://localhost:1313/currency&#39;&#34; /&gt;</description>
+    </item>
+    <item>
+      <title>Authenticate with Github on a Single-Page Application</title>
+      <link>http://localhost:1313/project/github_auth_with_spa/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/github_auth_with_spa/</guid>
+      <description>&lt;p&gt;For a recent project, I wanted a way to authenticate users, but without all the struggle of managing users and their data.&#xA;This was for a frontend, single-page application (SPA) where everything could be served as static HTML/CSS/JS files.&#xA;My solution was to allow users to sign in with their Github credentials using OAuth.&#xA;This is the best of both worlds: I won&amp;rsquo;t have to store any user data or think much about security, and users don&amp;rsquo;t have to trust me with their email or password.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Balut web app</title>
+      <link>http://localhost:1313/project/balut_game/</link>
+      <pubDate>Mon, 08 Mar 2021 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/balut_game/</guid>
+      <description>&lt;p&gt;Last year when it became impossible to meet up and play games together, I wrote a web implementation of the game &lt;a href=&#34;https://en.wikipedia.org/wiki/Balut_(game)&#34;&gt;Balut&lt;/a&gt;.&#xA;It is not the most known game in the world, but one that I have always enjoyed as a child.&#xA;The game can be found at &lt;a href=&#34;https://balut.app&#34;&gt;balut.app&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;rules-of-balut&#34;&gt;Rules of Balut&lt;/h2&gt;&#xA;&lt;p&gt;The goal of the game is similar to the game of Yahtzee.&#xA;The player starts each round with fives dices, and has up to three throws to collect a set of dices that they enter onto the board.&#xA;At each roll, the player can choose to save any number of dices and re-roll the remaining.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sudoku solver in Prolog</title>
+      <link>http://localhost:1313/project/prolog_sudoku_solver/</link>
+      <pubDate>Sat, 31 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/project/prolog_sudoku_solver/</guid>
+      <description>&lt;h2 id=&#34;primer&#34;&gt;Primer&lt;/h2&gt;&#xA;&lt;p&gt;A few days ago, I was doing a &lt;a href=&#34;https://en.wikipedia.org/wiki/Sudoku&#34;&gt;Sudoku&lt;/a&gt;, a puzzle game similar to cross word puzzles, but where the goal is to fill out every cell with a number.&#xA;Each number has to fulfill the following rules:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Each &lt;em&gt;row&lt;/em&gt; of numbers must be distinct&lt;/li&gt;&#xA;&lt;li&gt;Each &lt;em&gt;column&lt;/em&gt; of numbers must be distinct&lt;/li&gt;&#xA;&lt;li&gt;Each &lt;em&gt;3x3 square&lt;/em&gt; of numbers must be distinct&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Quite simple, but it can still provide some interesting and challenging problems.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
