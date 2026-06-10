@@ -1,5 +1,4 @@
 baseURL = "https://oliverflecke.me/"
-# languageCode = "en-us"
 title = "OliverFlecke"
 enableRobotsTXT = true
 

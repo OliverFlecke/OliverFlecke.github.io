@@ -4,7 +4,7 @@
 	"author": "Oliver Fleckenstein <oliverfl@live.dk>",
 	"license": "MIT",
 	"scripts": {
-		"dev": "concurrently --kill-others --names \"HUGO,CSS\" -c \"bgBlue.bold,bgGreen.bold\" \"hugo server\" \"yarn css\"",
+		"dev": "concurrently --kill-others --names \"HUGO,CSS\" -c \"bgBlue.bold,bgGreen.bold\" \"hugo server\" \"pnpm css\"",
 		"css": "TAILWIND_MODE=watch yarn postcss styles/main.css -o static/css/main.css -v --watch",
 		"build": "postcss styles/main.css -o static/css/main.css"
 	},
