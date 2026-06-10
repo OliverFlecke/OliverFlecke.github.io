@@ -1,17 +1,20 @@
 baseURL = "https://oliverflecke.me/"
-languageCode = "en-us"
+# languageCode = "en-us"
 title = "OliverFlecke"
 enableRobotsTXT = true
-[markup]
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    hl_Lines = ""
-    lineAnchors = ""
-    lineNoStart = 1
-    lineNos = false
-    lineNumbersInTable = true
-    noClasses = true
-    style = "dracula"
-    tabWidth = 2
+
+[security]
+allowContent = ['^text/html$', '^text/markdown$']
+
+[markup.highlight]
+anchorLineNos = false
+codeFences = true
+guessSyntax = false
+hl_Lines = ""
+lineAnchors = ""
+lineNoStart = 1
+lineNos = false
+lineNumbersInTable = true
+noClasses = true
+style = "dracula"
+tabWidth = 2
