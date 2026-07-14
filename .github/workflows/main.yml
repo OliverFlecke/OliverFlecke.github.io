@@ -12,8 +12,8 @@ concurrency:
 
 env:
   NODE_VERSION: 26
-  PNPM_VERSION: 11
-  HUGO_VERSION: 0.163
+  PNPM_VERSION: 11.13.0
+  HUGO_VERSION: 0.163.0
 
 jobs:
   format:
@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
 
