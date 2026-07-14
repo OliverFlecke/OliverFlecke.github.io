@@ -1,7 +1,9 @@
+.DS_Store
+
 node_modules/
-manifest.json
 _public/
 public/
-.DS_Store
-.hugo_build.lock
+dist/
 static/css/
+.hugo_build.lock
+manifest.json
