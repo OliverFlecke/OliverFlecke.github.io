@@ -4,3 +4,4 @@ _public/
 public/
 .DS_Store
 .hugo_build.lock
+static/css/
