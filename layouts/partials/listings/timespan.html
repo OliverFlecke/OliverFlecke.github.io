@@ -3,6 +3,6 @@
 	{{ with .End }}
 		<time datetime="{{ . }}">{{ dateFormat "2006" . }}</time>
 	{{ else }}
-		<time datetime="{{ now.Format "2006-01-02" }}">Now</time>
+		<time datetime='{{ now.Format "2006-01-02" }}'>Now</time>
 	{{ end }}
 </span>

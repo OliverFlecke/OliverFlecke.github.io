@@ -1,4 +1,5 @@
 <svg viewBox='0 0 512 512'>
+  <title>Terminal</title>
   <rect x='32' y='48' width='448' height='416' rx='48' ry='48' fill='none' stroke='#6b46c1' stroke-linejoin='round'
     stroke-width='32' />
   <path fill='none' stroke='#6b46c1' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'
