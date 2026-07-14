@@ -13,6 +13,6 @@
 		"concurrently": "^10.0.3",
 		"cssnano": "^8.0.2",
 		"tailwindcss": "4.3.2",
-		"wrangler": "^4.99.0"
+		"wrangler": "^4.110.0"
 	}
 }

@@ -13,7 +13,7 @@ concurrency:
 env:
   NODE_VERSION: 26
   PNPM_VERSION: 11
-  HUGO_VERSION: 0.164
+  HUGO_VERSION: 0.163
 
 jobs:
   format:
@@ -49,6 +49,11 @@ jobs:
     needs: [format, lint]
     steps:
       - uses: actions/checkout@v7
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+
       - uses: pnpm/action-setup@v6
         with:
           version: ${{ env.PNPM_VERSION }}
@@ -58,10 +63,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: ${{ env.HUGO_VERSION }}
+      - name: Build CSS
+        run: pnpm build
       - name: Build
         run: hugo --minify
 
