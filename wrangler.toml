@@ -1,8 +1,5 @@
 name = "website"
 compatibility_date = "2026-07-14"
 
-[build]
-command = "pnpm build && hugo --minify"
-
 [assets]
 directory = "public"
