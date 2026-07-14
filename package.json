@@ -5,17 +5,14 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "concurrently --kill-others --names \"HUGO,CSS\" -c \"bgBlue.bold,bgGreen.bold\" \"hugo server\" \"pnpm css\"",
-		"css": "TAILWIND_MODE=watch yarn postcss styles/main.css -o static/css/main.css -v --watch",
-		"build": "postcss styles/main.css -o static/css/main.css"
+		"css": "pnpm tailwindcss -i styles/main.css -o static/css/main.css -v --watch",
+		"build": "@tailwindcss/cli -i styles/main.css -o static/css/main.css"
 	},
 	"devDependencies": {
-		"autoprefixer": "^10.4.2",
-		"concurrently": "^7.0.0",
-		"cssnano": "^5.0.15",
-		"postcss": "^8.4.5",
-		"postcss-cli": "^9.1.0",
-		"postcss-import": "^14.0.1",
-		"tailwindcss": "^3.0.13",
+		"@tailwindcss/cli": "^4.3.2",
+		"concurrently": "^10.0.3",
+		"cssnano": "^8.0.2",
+		"tailwindcss": "4.3.2",
 		"wrangler": "^4.99.0"
 	}
 }

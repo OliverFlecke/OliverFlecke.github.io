@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'tailwindcss';
+
+@config '../tailwind.config.js';
 
 html {
 	text-size-adjust: 100%;
@@ -22,7 +22,7 @@ body {
 }
 
 .btn {
-	@apply rounded p-2 bg-blue-500 text-gray-200;
+	@apply rounded-sm p-2 bg-blue-500 text-gray-200;
 }
 
 .nav-link {
@@ -84,7 +84,7 @@ footer {
 	}
 
 	& div.highlight pre {
-		@apply rounded;
+		@apply rounded-sm;
 	}
 }
 
