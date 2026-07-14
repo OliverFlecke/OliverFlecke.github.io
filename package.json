@@ -1,12 +1,12 @@
 {
-	"name": "hugo-website",
+	"name": "website",
 	"version": "1.0.0",
-	"author": "Oliver Fleckenstein <oliverfl@live.dk>",
+	"author": "Oliver Fleckenstein <oliver@flecke.xyz>",
 	"license": "MIT",
 	"scripts": {
 		"dev": "concurrently --kill-others --names \"HUGO,CSS\" -c \"bgBlue.bold,bgGreen.bold\" \"hugo server\" \"pnpm css\"",
 		"css": "pnpm tailwindcss -i styles/main.css -o static/css/main.css -v --watch",
-		"build": "@tailwindcss/cli -i styles/main.css -o static/css/main.css"
+		"build": "pnpm tailwindcss -i styles/main.css -o static/css/main.css -v --minify"
 	},
 	"devDependencies": {
 		"@tailwindcss/cli": "^4.3.2",
