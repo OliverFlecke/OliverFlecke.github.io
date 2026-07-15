@@ -8,6 +8,9 @@ updates:
   - package-ecosystem: "npm"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 1
+      semver-major-days: 7
     directories:
       - "."
     groups:
