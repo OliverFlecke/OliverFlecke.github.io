@@ -12,7 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: renovatebot/github-action@v46.2.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
         env:
           RENOVATE_REPOSITORIES: ${{ github.repository }}
