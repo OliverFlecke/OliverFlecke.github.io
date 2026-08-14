@@ -10,11 +10,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  NODE_VERSION: 26
-  PNPM_VERSION: 11.20.0
-  HUGO_VERSION: 0.163.0
-
 jobs:
   format:
     runs-on: ubuntu-latest
