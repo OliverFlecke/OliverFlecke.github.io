@@ -15,7 +15,6 @@
 		"@tailwindcss/cli": "^4.3.3",
 		"concurrently": "^10.0.3",
 		"cssnano": "^8.0.2",
-		"tailwindcss": "4.3.3",
-		"wrangler": "^4.112.0"
+		"tailwindcss": "4.3.3"
 	}
 }
