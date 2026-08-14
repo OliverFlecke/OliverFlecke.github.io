@@ -8,9 +8,12 @@
 	"packageRules": [
 		{
 			"description": "npm: wait 2 days before raising non-major update PRs",
+			"groupName": "package.json non-major updates",
 			"matchManagers": ["npm"],
 			"matchUpdateTypes": ["patch", "minor"],
-			"minimumReleaseAge": "2 days"
+			"minimumReleaseAge": "2 days",
+			"automerge": true,
+			"platformAutomerge": true
 		},
 		{
 			"description": "npm: wait 7 days before raising major update PRs",
