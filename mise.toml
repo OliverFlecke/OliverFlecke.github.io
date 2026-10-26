@@ -2,4 +2,4 @@
 hugo = "0.168.0"
 node = "26"
 pnpm = "12"
-wrangler = "4.151"
+wrangler = "4.152"
