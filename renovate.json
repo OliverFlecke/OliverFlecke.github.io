@@ -1,19 +1,48 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": ["config:recommended"],
-	"lockFileMaintenance": { "enabled": true },
+	"platformAutomerge": true,
+	"rebaseWhen": "behind-base-branch",
+	"postUpdateOptions": ["pnpmDedupe"],
+	"lockFileMaintenance": { "enabled": true, "automerge": true },
+	"customManagers": [
+		{
+			"customType": "regex",
+			"description": "keep hk.pkl amends/import versions in sync with the hk release",
+			"managerFilePatterns": ["/(^|/)hk\\.pkl$/"],
+			"matchStrings": [
+				"download/v(?<currentValue>\\d+\\.\\d+\\.\\d+)/hk@",
+				"/hk@(?<currentValue>\\d+\\.\\d+\\.\\d+)#"
+			],
+			"depNameTemplate": "jdx/hk",
+			"datasourceTemplate": "github-releases"
+		}
+	],
 	"prConcurrentLimit": 5,
 	"prHourlyLimit": 0,
 	"minimumReleaseAge": "1 day",
 	"packageRules": [
 		{
+			"description": "automerge everything except major once checks pass",
+			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true
+		},
+		{
+			"description": "group mise tool bumps",
+			"matchManagers": ["mise"],
+			"groupName": "mise tools"
+		},
+		{
+			"description": "bump hk in mise.toml and hk.pkl together",
+			"matchPackageNames": ["jdx/hk", "hk"],
+			"groupName": "hk"
+		},
+		{
 			"description": "npm: wait 2 days before raising non-major update PRs",
 			"groupName": "package.json non-major updates",
 			"matchManagers": ["npm"],
 			"matchUpdateTypes": ["patch", "minor"],
-			"minimumReleaseAge": "2 days",
-			"automerge": true,
-			"platformAutomerge": true
+			"minimumReleaseAge": "2 days"
 		},
 		{
 			"description": "npm: wait 7 days before raising major update PRs",
