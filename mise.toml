@@ -1,6 +1,6 @@
 [tools]
 hugo = "0.170.1"
-hk = "2.13.0"
+hk = "2.14.0"
 node = "26"
 pnpm = "12"
 wrangler = "4.166"
